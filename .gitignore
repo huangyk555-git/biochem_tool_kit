@@ -1,0 +1,65 @@
+# Swift / Xcode build state
+.build/
+.swiftpm/
+build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Local generated deliverables, audit copies, caches, and logs
+work/
+outputs/
+dist/
+tmp/
+temp/
+.cache/
+cache/
+logs/
+*.log
+__pycache__/
+*.pyc
+
+# Compiled applications, installers, and generated archives
+*.app/
+*.dmg
+*.pkg
+*.ipa
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.dSYM/
+*.o
+*.a
+*.dylib
+*.swiftmodule
+
+# Credentials and signing material (never public source)
+.env
+.env.*
+!.env.example
+!.env.template
+*.p12
+*.pfx
+*.p8
+*.pem
+*.key
+*.cer
+*.mobileprovision
+*.provisionprofile
+.netrc
+credentials.json
+secrets.json
+notary-credentials*
+.gh/
+
+# Machine-specific editor / agent state and macOS metadata
+.codex/
+.agents/
+.idea/
+.DS_Store
+.AppleDouble
+._*
+*.swp
+*.swo
+*~

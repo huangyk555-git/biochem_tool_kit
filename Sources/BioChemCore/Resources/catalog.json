@@ -1,0 +1,1062 @@
+{
+  "schemaVersion": 1,
+  "chargeConvention": "电性以 pH 7 水溶液中侧链的主要形式表示。游离氨基酸通常同时含 α-NH₃⁺ 和 α-COO⁻；脯氨酸为环状仲铵。蛋白质内多数 α-氨基与 α-羧基形成肽键。分类允许重叠，电荷及 pKa 随环境变化。",
+  "sources": [
+    {
+      "id": "amino",
+      "title": "NCBI Bookshelf · The Chemical Components of a Cell",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK26883/"
+    },
+    {
+      "id": "histidine",
+      "title": "The pH sensitivity of histidine-containing lytic peptides",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3025445/"
+    },
+    {
+      "id": "groups",
+      "title": "OpenStax · Organic Chemistry §3.1 Functional Groups",
+      "url": "https://openstax.org/books/organic-chemistry/pages/3-1-functional-groups"
+    },
+    {
+      "id": "oxime",
+      "title": "IUPAC Gold Book · Oximes",
+      "url": "https://goldbook.iupac.org/terms/view/O04372"
+    }
+  ],
+  "entries": [
+    {
+      "id": "glycine",
+      "kind": "aminoAcid",
+      "nameCN": "甘氨酸",
+      "nameEN": "Glycine",
+      "threeLetter": "Gly",
+      "oneLetter": "G",
+      "sideChain": "–H",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "非极性",
+        "特殊结构"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "最小的标准氨基酸；α 碳无手性。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "alanine",
+      "kind": "aminoAcid",
+      "nameCN": "丙氨酸",
+      "nameEN": "Alanine",
+      "threeLetter": "Ala",
+      "oneLetter": "A",
+      "sideChain": "–CH₃",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "非极性",
+        "脂肪族"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "甲基侧链，体积较小。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "valine",
+      "kind": "aminoAcid",
+      "nameCN": "缬氨酸",
+      "nameEN": "Valine",
+      "threeLetter": "Val",
+      "oneLetter": "V",
+      "sideChain": "–CH(CH₃)₂",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "非极性",
+        "支链"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "含支链脂肪族侧链。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "leucine",
+      "kind": "aminoAcid",
+      "nameCN": "亮氨酸",
+      "nameEN": "Leucine",
+      "threeLetter": "Leu",
+      "oneLetter": "L",
+      "sideChain": "–CH₂–CH(CH₃)₂",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "非极性",
+        "支链"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "侧链为异丁基。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "isoleucine",
+      "kind": "aminoAcid",
+      "nameCN": "异亮氨酸",
+      "nameEN": "Isoleucine",
+      "threeLetter": "Ile",
+      "oneLetter": "I",
+      "sideChain": "–CH(CH₃)–CH₂–CH₃",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "非极性",
+        "支链"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "与亮氨酸互为构造异构体；侧链另有手性中心。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "proline",
+      "kind": "aminoAcid",
+      "nameCN": "脯氨酸",
+      "nameEN": "Proline",
+      "threeLetter": "Pro",
+      "oneLetter": "P",
+      "sideChain": "–(CH₂)₃–（末端回接 α-N）",
+      "formula": "环状 ⁺H₂N–CH(COO⁻)–(CH₂)₃（回接 N）",
+      "categories": [
+        "非极性",
+        "特殊结构"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "侧链与 α-氮闭合成五元环，限制主链构象。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "methionine",
+      "kind": "aminoAcid",
+      "nameCN": "甲硫氨酸",
+      "nameEN": "Methionine",
+      "threeLetter": "Met",
+      "oneLetter": "M",
+      "sideChain": "–CH₂–CH₂–S–CH₃",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "非极性",
+        "含硫"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "含硫醚侧链，又称蛋氨酸。",
+      "structureAsset": null,
+      "aliases": [
+        "蛋氨酸"
+      ],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "phenylalanine",
+      "kind": "aminoAcid",
+      "nameCN": "苯丙氨酸",
+      "nameEN": "Phenylalanine",
+      "threeLetter": "Phe",
+      "oneLetter": "F",
+      "sideChain": "–CH₂–C₆H₅",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "非极性",
+        "芳香族"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "苄基侧链。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "tyrosine",
+      "kind": "aminoAcid",
+      "nameCN": "酪氨酸",
+      "nameEN": "Tyrosine",
+      "threeLetter": "Tyr",
+      "oneLetter": "Y",
+      "sideChain": "–CH₂–C₆H₄–OH（对位）",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "极性不带电",
+        "芳香族"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "pH 7 时侧链主要中性，少量去质子化；蛋白质微环境可改变酸解离平衡。"
+      },
+      "summary": "含酚羟基；在 pH 7 下主要保持质子化。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "tryptophan",
+      "kind": "aminoAcid",
+      "nameCN": "色氨酸",
+      "nameEN": "Tryptophan",
+      "threeLetter": "Trp",
+      "oneLetter": "W",
+      "sideChain": "–CH₂–(1H-吲哚-3-基)",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "非极性",
+        "芳香族"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "含吲哚环，体积较大；吲哚 N–H 可形成氢键。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "serine",
+      "kind": "aminoAcid",
+      "nameCN": "丝氨酸",
+      "nameEN": "Serine",
+      "threeLetter": "Ser",
+      "oneLetter": "S",
+      "sideChain": "–CH₂–OH",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "极性不带电",
+        "含羟基"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "侧链含羟基。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "threonine",
+      "kind": "aminoAcid",
+      "nameCN": "苏氨酸",
+      "nameEN": "Threonine",
+      "threeLetter": "Thr",
+      "oneLetter": "T",
+      "sideChain": "–CH(OH)–CH₃",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "极性不带电",
+        "含羟基"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "含羟基，侧链另有手性中心。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "cysteine",
+      "kind": "aminoAcid",
+      "nameCN": "半胱氨酸",
+      "nameEN": "Cysteine",
+      "threeLetter": "Cys",
+      "oneLetter": "C",
+      "sideChain": "–CH₂–SH",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "极性不带电",
+        "含硫"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "pH 7 时侧链主要中性，少量去质子化；蛋白质微环境可改变酸解离平衡。"
+      },
+      "summary": "硫醇在 pH 7 主要不带电；氧化后可形成二硫键。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "asparagine",
+      "kind": "aminoAcid",
+      "nameCN": "天冬酰胺",
+      "nameEN": "Asparagine",
+      "threeLetter": "Asn",
+      "oneLetter": "N",
+      "sideChain": "–CH₂–C(=O)–NH₂",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "极性不带电",
+        "酰胺"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "含末端酰胺，不应与带负电的天冬氨酸混淆。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "glutamine",
+      "kind": "aminoAcid",
+      "nameCN": "谷氨酰胺",
+      "nameEN": "Glutamine",
+      "threeLetter": "Gln",
+      "oneLetter": "Q",
+      "sideChain": "–CH₂–CH₂–C(=O)–NH₂",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "极性不带电",
+        "酰胺"
+      ],
+      "chargePH7": {
+        "label": "主要中性（0）",
+        "predominant": 0,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "酰胺侧链，比天冬酰胺多一个亚甲基。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "aspartate",
+      "kind": "aminoAcid",
+      "nameCN": "天冬氨酸",
+      "nameEN": "Aspartic acid",
+      "threeLetter": "Asp",
+      "oneLetter": "D",
+      "sideChain": "–CH₂–COO⁻",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "酸性",
+        "负电"
+      ],
+      "chargePH7": {
+        "label": "负电（−1）",
+        "predominant": -1,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "pH 7 时侧链羧基主要以羧酸根存在。",
+      "structureAsset": null,
+      "aliases": [
+        "Aspartate",
+        "天冬氨酸根"
+      ],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "glutamate",
+      "kind": "aminoAcid",
+      "nameCN": "谷氨酸",
+      "nameEN": "Glutamic acid",
+      "threeLetter": "Glu",
+      "oneLetter": "E",
+      "sideChain": "–CH₂–CH₂–COO⁻",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "酸性",
+        "负电"
+      ],
+      "chargePH7": {
+        "label": "负电（−1）",
+        "predominant": -1,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "侧链比天冬氨酸多一个亚甲基。",
+      "structureAsset": null,
+      "aliases": [
+        "Glutamate",
+        "谷氨酸根"
+      ],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "lysine",
+      "kind": "aminoAcid",
+      "nameCN": "赖氨酸",
+      "nameEN": "Lysine",
+      "threeLetter": "Lys",
+      "oneLetter": "K",
+      "sideChain": "–(CH₂)₄–NH₃⁺",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "碱性",
+        "正电"
+      ],
+      "chargePH7": {
+        "label": "正电（+1）",
+        "predominant": 1,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "pH 7 时 ε-氨基主要处于质子化状态。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "arginine",
+      "kind": "aminoAcid",
+      "nameCN": "精氨酸",
+      "nameEN": "Arginine",
+      "threeLetter": "Arg",
+      "oneLetter": "R",
+      "sideChain": "–(CH₂)₃–NH–C(=NH₂⁺)–NH₂",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "碱性",
+        "正电"
+      ],
+      "chargePH7": {
+        "label": "正电（+1）",
+        "predominant": 1,
+        "note": "这里表示侧链的主要电荷状态；不等同于整个分子不含带电基团。"
+      },
+      "summary": "侧链末端为胍鎓基；正电荷在该基团中离域。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "amino"
+      ]
+    },
+    {
+      "id": "histidine",
+      "kind": "aminoAcid",
+      "nameCN": "组氨酸",
+      "nameEN": "Histidine",
+      "threeLetter": "His",
+      "oneLetter": "H",
+      "sideChain": "–CH₂–(1H-咪唑-4-基)",
+      "formula": "⁺H₃N–CH(R)–COO⁻",
+      "categories": [
+        "碱性",
+        "芳香族"
+      ],
+      "chargePH7": {
+        "label": "以中性为主，部分正电",
+        "predominant": 0,
+        "note": "咪唑侧链 pKa 约 6；按此估计 pH 7 时约 9% 质子化。微环境可显著改变 pKa，不能简单标为固定 +1。"
+      },
+      "summary": "咪唑侧链可接受或给出质子，常参与酸碱催化。",
+      "structureAsset": null,
+      "aliases": [
+        "咪唑"
+      ],
+      "sourceIDs": [
+        "amino",
+        "histidine"
+      ]
+    },
+    {
+      "id": "hydroxyl",
+      "kind": "functionalGroup",
+      "nameCN": "羟基 / 醇",
+      "nameEN": "Hydroxyl / Alcohol",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–OH",
+      "categories": [
+        "含氧"
+      ],
+      "chargePH7": null,
+      "summary": "醇的羟基连接饱和碳；可参与氢键。",
+      "structureAsset": null,
+      "aliases": [
+        "醇",
+        "alcohol"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "phenol",
+      "kind": "functionalGroup",
+      "nameCN": "酚",
+      "nameEN": "Phenol",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "Ar–OH",
+      "categories": [
+        "含氧",
+        "芳香族"
+      ],
+      "chargePH7": null,
+      "summary": "羟基直接连接芳香环。",
+      "structureAsset": null,
+      "aliases": [
+        "酚羟基"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "ether",
+      "kind": "functionalGroup",
+      "nameCN": "醚",
+      "nameEN": "Ether",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–O–R′",
+      "categories": [
+        "含氧"
+      ],
+      "chargePH7": null,
+      "summary": "氧原子连接两个有机基团。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "aldehyde",
+      "kind": "functionalGroup",
+      "nameCN": "醛基 / 醛",
+      "nameEN": "Aldehyde",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–C(=O)–H",
+      "categories": [
+        "含氧",
+        "羰基"
+      ],
+      "chargePH7": null,
+      "summary": "羰基碳至少连接一个氢。",
+      "structureAsset": "aldehyde.svg",
+      "aliases": [
+        "RCHO"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "ketone",
+      "kind": "functionalGroup",
+      "nameCN": "酮",
+      "nameEN": "Ketone",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–C(=O)–R′",
+      "categories": [
+        "含氧",
+        "羰基"
+      ],
+      "chargePH7": null,
+      "summary": "羰基碳连接两个碳基团。",
+      "structureAsset": "ketone.svg",
+      "aliases": [],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "carboxyl",
+      "kind": "functionalGroup",
+      "nameCN": "羧基 / 羧酸",
+      "nameEN": "Carboxyl / Carboxylic acid",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–C(=O)–OH",
+      "categories": [
+        "含氧",
+        "羰基"
+      ],
+      "chargePH7": null,
+      "summary": "羧基可失去质子形成羧酸根。",
+      "structureAsset": null,
+      "aliases": [
+        "RCOOH"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "carboxylate",
+      "kind": "functionalGroup",
+      "nameCN": "羧酸根",
+      "nameEN": "Carboxylate",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–C(=O)–O⁻",
+      "categories": [
+        "含氧",
+        "羰基"
+      ],
+      "chargePH7": null,
+      "summary": "羧酸的共轭碱；负电荷离域于两个氧。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "ester",
+      "kind": "functionalGroup",
+      "nameCN": "酯",
+      "nameEN": "Ester",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–C(=O)–O–R′",
+      "categories": [
+        "含氧",
+        "羰基"
+      ],
+      "chargePH7": null,
+      "summary": "羰基碳通过氧连接另一有机基团。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "amide",
+      "kind": "functionalGroup",
+      "nameCN": "酰胺",
+      "nameEN": "Amide",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–C(=O)–NH₂",
+      "categories": [
+        "含氮",
+        "羰基"
+      ],
+      "chargePH7": null,
+      "summary": "图示为一级酰胺；肽键属于酰胺键。",
+      "structureAsset": "amide.svg",
+      "aliases": [
+        "肽键",
+        "peptide"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "amine",
+      "kind": "functionalGroup",
+      "nameCN": "胺",
+      "nameEN": "Amine",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–NH₂ / R₂NH / R₃N",
+      "categories": [
+        "含氮"
+      ],
+      "chargePH7": null,
+      "summary": "依氮上有机取代基数量分为一级、二级、三级胺。",
+      "structureAsset": null,
+      "aliases": [
+        "氨基"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "imine",
+      "kind": "functionalGroup",
+      "nameCN": "亚胺",
+      "nameEN": "Imine",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R₂C=NR′",
+      "categories": [
+        "含氮"
+      ],
+      "chargePH7": null,
+      "summary": "含碳氮双键；碳端的 R 或氮端的 R′ 可以是 H。",
+      "structureAsset": null,
+      "aliases": [
+        "Schiff base",
+        "席夫碱"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "oxime",
+      "kind": "functionalGroup",
+      "nameCN": "肟",
+      "nameEN": "Oxime",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R₂C=N–OH",
+      "categories": [
+        "含氮",
+        "含氧"
+      ],
+      "chargePH7": null,
+      "summary": "羰基化合物与羟胺缩合可形成肟；R 可为 H。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "oxime"
+      ]
+    },
+    {
+      "id": "nitrile",
+      "kind": "functionalGroup",
+      "nameCN": "腈基 / 腈",
+      "nameEN": "Nitrile",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–C≡N",
+      "categories": [
+        "含氮"
+      ],
+      "chargePH7": null,
+      "summary": "含碳氮三键。",
+      "structureAsset": null,
+      "aliases": [
+        "氰基",
+        "cyano"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "thiol",
+      "kind": "functionalGroup",
+      "nameCN": "巯基 / 硫醇",
+      "nameEN": "Thiol",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–SH",
+      "categories": [
+        "含硫"
+      ],
+      "chargePH7": null,
+      "summary": "硫醇失去质子形成硫醇盐。",
+      "structureAsset": null,
+      "aliases": [
+        "巯基"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "thioether",
+      "kind": "functionalGroup",
+      "nameCN": "硫醚",
+      "nameEN": "Thioether",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–S–R′",
+      "categories": [
+        "含硫"
+      ],
+      "chargePH7": null,
+      "summary": "硫原子连接两个有机基团。",
+      "structureAsset": null,
+      "aliases": [
+        "sulfide"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "disulfide",
+      "kind": "functionalGroup",
+      "nameCN": "二硫键",
+      "nameEN": "Disulfide",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–S–S–R′",
+      "categories": [
+        "含硫"
+      ],
+      "chargePH7": null,
+      "summary": "两个硫原子直接相连。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "thioester",
+      "kind": "functionalGroup",
+      "nameCN": "硫酯",
+      "nameEN": "Thioester",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–C(=O)–S–R′",
+      "categories": [
+        "含硫",
+        "羰基"
+      ],
+      "chargePH7": null,
+      "summary": "酰基通过硫与有机基团连接。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "phosphate",
+      "kind": "functionalGroup",
+      "nameCN": "磷酸单酯",
+      "nameEN": "Phosphate monoester",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–O–P(=O)(O⁻)–O⁻",
+      "categories": [
+        "含磷"
+      ],
+      "chargePH7": null,
+      "summary": "图示为二阴离子形式；实际质子化状态取决于 pH。",
+      "structureAsset": null,
+      "aliases": [
+        "磷酸酯"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "alkene",
+      "kind": "functionalGroup",
+      "nameCN": "烯烃",
+      "nameEN": "Alkene",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R₂C=CR₂",
+      "categories": [
+        "碳骨架"
+      ],
+      "chargePH7": null,
+      "summary": "含碳碳双键；此处 R 可为 H。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "alkyne",
+      "kind": "functionalGroup",
+      "nameCN": "炔烃",
+      "nameEN": "Alkyne",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–C≡C–R′",
+      "categories": [
+        "碳骨架"
+      ],
+      "chargePH7": null,
+      "summary": "含碳碳三键；R 或 R′ 可为 H。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "arene",
+      "kind": "functionalGroup",
+      "nameCN": "芳香环 / 芳烃",
+      "nameEN": "Arene",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "Ar–H（如 C₆H₆）",
+      "categories": [
+        "碳骨架",
+        "芳香族"
+      ],
+      "chargePH7": null,
+      "summary": "Ar 表示芳基；苯是常见示例。",
+      "structureAsset": null,
+      "aliases": [
+        "benzene",
+        "苯环"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "halide",
+      "kind": "functionalGroup",
+      "nameCN": "卤代烃",
+      "nameEN": "Organic halide",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–X（X = F, Cl, Br, I）",
+      "categories": [
+        "卤素"
+      ],
+      "chargePH7": null,
+      "summary": "含碳卤键。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "acylchloride",
+      "kind": "functionalGroup",
+      "nameCN": "酰氯",
+      "nameEN": "Acyl chloride",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–C(=O)–Cl",
+      "categories": [
+        "羰基",
+        "卤素"
+      ],
+      "chargePH7": null,
+      "summary": "羰基碳直接连接氯。",
+      "structureAsset": null,
+      "aliases": [
+        "acid chloride"
+      ],
+      "sourceIDs": [
+        "groups"
+      ]
+    },
+    {
+      "id": "anhydride",
+      "kind": "functionalGroup",
+      "nameCN": "酸酐",
+      "nameEN": "Acid anhydride",
+      "threeLetter": null,
+      "oneLetter": null,
+      "sideChain": null,
+      "formula": "R–C(=O)–O–C(=O)–R′",
+      "categories": [
+        "含氧",
+        "羰基"
+      ],
+      "chargePH7": null,
+      "summary": "两个酰基通过氧连接。",
+      "structureAsset": null,
+      "aliases": [],
+      "sourceIDs": [
+        "groups"
+      ]
+    }
+  ]
+}
