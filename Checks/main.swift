@@ -1,6 +1,7 @@
 import Foundation
 import CoreGraphics
 import BioChemCore
+import BioChemTestSupport
 
 struct CheckFailure: Error, CustomStringConvertible { let description: String }
 var count = 0
@@ -89,6 +90,10 @@ do {
     try check("region invalidates on resize", region.resolve(in: CGRect(x: 100, y: 200, width: 600, height: 500)) == nil)
     try check("region rejects clicks outside window", PetRegionAnchor(window: originalWindow, point: CGPoint(x: 0, y: 0)) == nil)
     try check("region clips to window", PetRegionAnchor(window: originalWindow, point: CGPoint(x: 110, y: 210))!.relative.minX == 0)
+    for test in AnalysisChecks.all {
+        try test.run()
+        try check(test.name, true)
+    }
     print("\(count) checks passed.")
 } catch {
     fputs("FAIL: \(error)\n", stderr)

@@ -13,7 +13,8 @@ let package = Package(
         .target(name: "BioChemCore", resources: [.copy("Resources")]),
         .target(name: "BioChemUI", dependencies: ["BioChemCore"]),
         .executableTarget(name: "BioChemPet", dependencies: ["BioChemUI", "BioChemCore"]),
-        .executableTarget(name: "BioChemCheck", dependencies: ["BioChemCore"], path: "Checks"),
-        .testTarget(name: "BioChemCoreTests", dependencies: ["BioChemCore"])
+        .target(name: "BioChemTestSupport", dependencies: ["BioChemCore"], path: "Tests/Support"),
+        .executableTarget(name: "BioChemCheck", dependencies: ["BioChemCore", "BioChemTestSupport"], path: "Checks"),
+        .testTarget(name: "BioChemCoreTests", dependencies: ["BioChemCore", "BioChemTestSupport"])
     ]
 )

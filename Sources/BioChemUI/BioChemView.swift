@@ -2,11 +2,9 @@ import SwiftUI
 import WebKit
 import BioChemCore
 
-private let ink = Color(red: 0.09, green: 0.28, blue: 0.25)
-private let paper = Color(red: 0.97, green: 0.97, blue: 0.94)
-
 @MainActor
 public final class BioChemSession: ObservableObject {
+    @Published public var destination: ToolDestination = .reference
     @Published public var kind: EntryKind = .aminoAcid
     @Published public var query = ""
     @Published public var category = "全部"
@@ -19,11 +17,17 @@ public final class BioChemSession: ObservableObject {
         ["全部"] + Set(catalog.entries.filter { $0.kind == kind }.flatMap(\.categories)).sorted()
     }
     public func switchTo(_ kind: EntryKind) {
+        destination = .reference
         self.kind = kind; query = ""; category = "全部"; selectedID = nil
     }
 }
 
 public struct BioChemView: View {
+    @Environment(\.colorScheme) private var colorScheme
+    private var ink: Color { colorScheme == .dark ? Color(red: 0.60, green: 0.87, blue: 0.79) : Color(red: 0.09, green: 0.28, blue: 0.25) }
+    private var paper: Color { colorScheme == .dark ? Color(nsColor: .windowBackgroundColor) : Color(red: 0.97, green: 0.97, blue: 0.94) }
+    private var card: Color { colorScheme == .dark ? Color(nsColor: .controlBackgroundColor) : .white }
+
     @ObservedObject private var session: BioChemSession
     @FocusState private var searchFocused: Bool
     private let onOpenSettings: (() -> Void)?
@@ -53,8 +57,8 @@ public struct BioChemView: View {
                     Button { session.switchTo(kind) } label: {
                         Text(kind.title).font(.system(size: 13, weight: .semibold))
                             .padding(.horizontal, 19).padding(.vertical, 9)
-                            .background(session.kind == kind ? ink : Color.white.opacity(0.7), in: Capsule())
-                            .foregroundStyle(session.kind == kind ? .white : ink)
+                            .background(session.kind == kind ? ink : card.opacity(0.7), in: Capsule())
+                            .foregroundStyle(session.kind == kind ? paper : ink)
                     }.buttonStyle(.plain)
                 }
                 Spacer()
@@ -83,7 +87,7 @@ public struct BioChemView: View {
                 Text("pH 7 · 侧链主要电性 · 分类可重叠").font(.system(size: 10))
             }.foregroundStyle(.secondary).padding(.horizontal, 22).padding(.vertical, 10)
         }
-        .foregroundStyle(ink).background(paper).preferredColorScheme(.light)
+        .foregroundStyle(ink).background(paper)
         .frame(minWidth: 780, minHeight: 600)
         .onReceive(NotificationCenter.default.publisher(for: .bioChemFocusSearch)) { _ in searchFocused = true }
     }
@@ -98,7 +102,7 @@ public struct BioChemView: View {
                     Button { session.query = "" } label: { Image(systemName: "xmark.circle.fill") }
                         .buttonStyle(.plain).accessibilityLabel("清除搜索")
                 }
-            }.padding(10).background(.white, in: RoundedRectangle(cornerRadius: 9))
+            }.padding(10).background(card, in: RoundedRectangle(cornerRadius: 9))
             Picker("分类", selection: $session.category) {
                 ForEach(session.categories, id: \.self) { Text($0).tag($0) }
             }.font(.system(size: 12))
@@ -128,7 +132,7 @@ public struct BioChemView: View {
                     }
                 }.onChange(of: session.query) { _ in if let first = session.results.first { proxy.scrollTo(first.id, anchor: .top) } }
             }
-        }.padding(14).background(Color.white.opacity(0.35))
+        }.padding(14).background(card.opacity(0.35))
     }
 
     private func detail(_ entry: BioChemEntry) -> some View {
@@ -160,7 +164,7 @@ public struct BioChemView: View {
                             .font(.system(size: 10)).foregroundStyle(.secondary)
                     }
                 }.padding(19).frame(maxWidth: .infinity, alignment: .leading)
-                    .background(.white.opacity(0.85), in: RoundedRectangle(cornerRadius: 14))
+                    .background(card.opacity(0.85), in: RoundedRectangle(cornerRadius: 14))
                 if let charge = entry.chargePH7 {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("pH 7 侧链电性").font(.system(size: 11)).foregroundStyle(.secondary)

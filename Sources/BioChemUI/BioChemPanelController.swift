@@ -16,15 +16,15 @@ public final class BioChemPanelController {
 
     public init(catalog: Catalog, floating: Bool = true, onOpenSettings: (() -> Void)? = nil) {
         session = BioChemSession(catalog: catalog)
-        panel = SearchablePanel(contentRect: NSRect(x: 0, y: 0, width: 840, height: 680),
+        panel = SearchablePanel(contentRect: NSRect(x: 0, y: 0, width: 920, height: 760),
                                 styleMask: floating ? [.titled, .closable, .resizable, .utilityWindow] : [.titled, .closable, .resizable, .miniaturizable], backing: .buffered, defer: false)
         panel.title = "BioChem · 生化速查"
-        panel.minSize = NSSize(width: 780, height: 630)
+        panel.minSize = NSSize(width: 780, height: 700)
         panel.isReleasedWhenClosed = false
         panel.hidesOnDeactivate = false
         panel.level = floating ? .floating : .normal
         panel.collectionBehavior = [.fullScreenAuxiliary]
-        panel.contentView = NSHostingView(rootView: BioChemView(session: session, onOpenSettings: onOpenSettings))
+        panel.contentView = NSHostingView(rootView: ToolkitView(session: session, onOpenSettings: onOpenSettings))
         panel.center()
     }
 
@@ -33,7 +33,8 @@ public final class BioChemPanelController {
     }
 
     /// Screen-space anchor uses AppKit coordinates. Omit to retain the last panel location.
-    public func show(kind: EntryKind? = nil, near anchor: NSRect? = nil) {
+    public func show(kind: EntryKind? = nil, destination: ToolDestination? = nil, near anchor: NSRect? = nil) {
+        if let destination { session.destination = destination }
         if let kind { session.switchTo(kind) }
         if let anchor {
             let screen = NSScreen.screens.first { $0.frame.intersects(anchor) } ?? NSScreen.main

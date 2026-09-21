@@ -2,7 +2,7 @@
 
 macOS 原生生化小工具：Swift + SwiftUI + AppKit、本地 JSON、离线查询。默认独立使用；连接 Codex 桌宠是 App 内的可选功能。
 
-**当前仓库仅发布源码，不提供预编译 `.app`、`.dmg` 或 GitHub Release。** 当前应用版本为 0.4.1；正式 macOS 分发仍在准备中。下面的构建步骤面向开发者，普通用户的直接下载版本尚未发布。
+**当前仓库仅发布源码，不提供预编译 `.app`、`.dmg` 或 GitHub Release。** 当前应用版本为 0.5.0；正式 macOS 分发仍在准备中。下面的构建步骤面向开发者，普通用户的直接下载版本尚未发布。
 
 ## 本地构建后使用
 
@@ -16,7 +16,7 @@ macOS 原生生化小工具：Swift + SwiftUI + AppKit、本地 JSON、离线查
 2. 仅此功能需要辅助功能权限。在 **系统设置 → 隐私与安全性 → 辅助功能** 中开启当前应用。已有授权时可直接点选。
 3. 在 Codex 中唤醒桌宠，点击“开始点选桌宠”，20 秒内单击桌宠身体。
 4. 确认绿色边框只围住桌宠，然后点击“确认绑定”。没有独立控件时使用明确确认过的窗口内小区域。
-5. 此后**右键桌宠 → 打开生化工具 / 氨基酸 / 官能团**。菜单中“关闭资料窗口”只收起资料；“退出生化工具”关闭整个应用并停止连接。左键保留原有动作，悬停不触发；Option + 右键保留原菜单。
+5. 此后**右键桌宠 → 打开生化工具**，或从 Reference / Sequence / Protein / Calculators 二级菜单直接进入工具。菜单中“关闭资料窗口”只收起资料；“退出生化工具”关闭整个应用并停止连接。左键保留原有动作，悬停不触发；Option + 右键保留原菜单。
 
 关闭“连接 Codex 桌宠”会停止事件监听、取消点选计时器、清除绑定并释放连接模块；生化查询继续使用。关闭设置窗口不会断开连接。“启用右键菜单”可临时暂停已绑定的菜单；总开关关闭则彻底断开。
 
@@ -28,7 +28,7 @@ macOS 原生生化小工具：Swift + SwiftUI + AppKit、本地 JSON、离线查
 
 ## 权限与数据
 
-辅助功能权限只用于识别点选元素的进程、类型、父级关系和几何位置。程序不读取 AXValue、聊天文本或剪贴板，不监听键盘，不模拟点击，不申请屏幕录制权限，不上传数据。左键监听仅用于首次点选与区域拖动失效判定；右键事件监听仅在确认绑定并启用后启动。暂停或权限撤销时停止监听，没有鼠标悬停监听。
+辅助功能权限只用于识别点选元素的进程、类型、父级关系和几何位置。桥接程序不读取 AXValue、聊天文本或剪贴板，不监听键盘，不模拟点击，不申请屏幕录制权限，不上传数据。左键监听仅用于首次点选与区域拖动失效判定；右键事件监听仅在确认绑定并启用后启动。暂停或权限撤销时停止监听，没有鼠标悬停监听。
 
 点选只接受 `com.openai.codex` 或 `com.openai.chat` 进程。确认前会描绘识别范围；绑定后会再次验证点击所属进程与元素关系，拒绝被其他窗口覆盖的点击。只凭大小不能判断一个元素就是桌宠，因此首次人工确认十分必要。区域模式不能自动跟随宠物在同一窗口内部的布局变化；移动、换宠物或布局改变后必须重新点选。
 
@@ -40,26 +40,49 @@ macOS 原生生化小工具：Swift + SwiftUI + AppKit、本地 JSON、离线查
 - 保留 JSON 与视图分层；氨基酸预留完整 SVG，现有醛、酮、酰胺 SVG 示例。
 - 电性表示侧链主要状态。组氨酸保留部分质子化说明，脯氨酸使用环状骨架示意。
 
+## 分析与计算工具
+
+顶部“BioChem”菜单按 Reference / Sequence / Protein / Calculators 分组。菜单栏与可选桌宠右键菜单使用二级菜单，避免一次铺满按钮。切换页面保留本次会话输入；退出应用后序列输入不保存。常用结果旁可点击复制，序列与完整报告另有复制按钮。外观默认跟随系统，也可在工具窗口选择浅色或深色。
+
+- **Primer Tools**：DNA 自动去空白并大写，非法字符明确报错；显示长度、GC/AT%、无修饰单链 MW、反向互补序列，以及 Wallace 和 GC/Na⁺ 两种 Estimated Tm。支持输入一对引物、选择 Tm 方法、查看 ΔTm 和估计退火温度范围。
+- **Protein Analyzer**：20 种标准氨基酸单字母序列或单条 FASTA；显示长度、Theoretical MW / pI、氨基酸组成、酸性/碱性/芳香族残基数、Trp/Tyr/Cys 数、平均残基质量及两种二硫键假设下的 ε₂₈₀。
+- **Sequence Tools**：DNA 长度、GC%、reverse、complement、reverse complement；Translation 支持标准遗传密码表、三个正向 reading frames、是否遇到 stop codon 停止，并提示末尾不足一个密码子的碱基数。
+- **Calculators**：稀释计算任选 C1/V1/C2/V2 中一个未知量；Molarity / Mass 根据分子量、浓度及最终体积计算质量。支持 M/mM/μM、L/mL/μL、g/mg/μg，内部统一基础单位。
+
+**Tm、protein pI、protein MW 和退火范围均为 theoretical / estimated values，绝非实验测定值。** 适合 quick laboratory reference、experiment preparation 和 sequence inspection，不能替代专业分析软件或实验验证。General Tm 为带 Na⁺ 项的经验式，并非 nearest-neighbor；pI 使用 Bjellqvist pKa 和电荷数值求根；MW 按残基质量并正确计入肽键失水。全部公式、pKa、输入规则及局限见 [计算方法说明](docs/CALCULATIONS.md)。
+
+输入与计算均在本地内存中完成，不发送网络请求。点击复制会将所选结果写入系统剪贴板。DNA 不接受模糊碱基或 FASTA；蛋白质一次接受一条 FASTA，不会自动拼接多条记录。单次最多 100,000 个碱基/残基。
+
 ## 工程
 
-- `Sources/BioChemCore`：资料模型、JSON、搜索、右键序列判定与绑定范围规则。
-- `Sources/BioChemUI`：资料 SwiftUI 视图与 NSPanel 控制器。
+- `Sources/BioChemCore`：资料 JSON、搜索、右键规则；`Models/` 为计算结果及单位模型，`Services/` 为计算服务，`Data/` 为残基质量、pKa 与密码表。
+- `Sources/BioChemUI`：原资料视图与 NSPanel；`ToolkitView` 提供分组导航，`Modules/` 包含各分析页面与共享控件。
 - `Sources/BioChemPet/NativePetBridge.swift`：辅助功能位置识别、右键事件接管、点选、确认、暂停与失效处理。
 - `Sources/BioChemPet/App.swift`：连接设置、菜单栏、右键菜单预览。
 - `Checks/main.swift`：无需 XCTest 的可执行回归检查。
-- `Tests/BioChemCoreTests`：原版 XCTest 测试（完整 Xcode 可运行）。
+- `Tests/Support`：26 组新计算检查，供命令行与 XCTest 共用。
+- `Tests/BioChemCoreTests`：原资料 XCTest 和新增计算 XCTest（需要包含 XCTest 的完整 Xcode 工具链）。
 
 构建需要 macOS 13 或更新版本、Swift 5.9 或更新版本（来自兼容的 Xcode / Command Line Tools），以及构建辅助脚本使用的 Python 3。当前已验证环境为 Apple Silicon、macOS 15.3.2、Swift 6.1.2；尚未验证 Intel 构建。Python 仅在构建时使用，生成的应用运行时不依赖 Python、Node 或 Homebrew。
 
 构建与检查：
 
 ```sh
+./scripts/swift-local.sh build
 ./scripts/swift-local.sh run BioChemCheck
 ./scripts/build-app.sh
 open 'outputs/BioChem Bridge.app'
 ```
 
 构建脚本针对本机 Command Line Tools 遗留的私有接口与重复模块声明，使用工程内的临时文件映射；不修改系统开发工具。Apple Silicon 上输出 arm64 应用，采用本地 ad-hoc 签名，未做 Developer ID 公证。更新构建后，macOS 可能要求重新确认辅助功能授权。
+
+有完整 Xcode 并将开发工具目录指向它时，还可运行：
+
+```sh
+./scripts/swift-local.sh test
+```
+
+当前仅装 Command Line Tools 的环境缺少 XCTest，`swift test` 会报告 `no such module 'XCTest'`。`BioChemCheck` 不依赖 XCTest，运行原有 62 项回归检查和新增 26 组共享计算检查；此次共 88 项通过。不能将命令行检查通过等同于 XCTest runner 已运行成功。
 
 ## 验证范围
 

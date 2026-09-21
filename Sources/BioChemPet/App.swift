@@ -66,8 +66,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         status.button?.toolTip = "BioChem · 生化速查"
         let menu = NSMenu()
         menu.addItem(item("打开生化资料", #selector(openLibrary)))
-        menu.addItem(item("氨基酸 · 20", #selector(openAmino)))
-        menu.addItem(item("官能团 · 24", #selector(openGroups)))
+        addToolMenus(to: menu)
         menu.addItem(.separator())
         menu.addItem(item("设置 · 可选桌宠连接…", #selector(openSettings)))
         menu.addItem(item("退出 BioChem", #selector(quit), key: "q"))
@@ -87,6 +86,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         edit.addItem(item("搜索生化资料", #selector(focusSearch), key: "f"))
         editItem.submenu = edit; main.addItem(editItem); NSApp.mainMenu = main
     }
+    private func addToolMenus(to menu: NSMenu) {
+        let sections: [(String, [(String, Selector)])] = [
+            ("Reference", [("氨基酸 · 20", #selector(openAmino)), ("官能团 · 24", #selector(openGroups))]),
+            ("Sequence", [("Primer Tools", #selector(openPrimer)), ("DNA Tools", #selector(openDNA)), ("Translation", #selector(openTranslation))]),
+            ("Protein", [("Protein Analyzer", #selector(openProtein))]),
+            ("Calculators", [("Dilution", #selector(openDilution)), ("Molarity / Mass", #selector(openMolarity))])
+        ]
+        for (title, entries) in sections {
+            let parent = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+            let submenu = NSMenu(title: title)
+            for (label, action) in entries { submenu.addItem(item(label, action)) }
+            parent.submenu = submenu; menu.addItem(parent)
+        }
+    }
     private func showSettings() { NSApp.activate(ignoringOtherApps: true); settings?.makeKeyAndOrderFront(nil) }
     private func showMenuPreview() {
         showPetMenu(near: nil, at: NSEvent.mouseLocation)
@@ -96,8 +109,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         defer { menuAnchor = nil }
         let menu = NSMenu(title: "生化工具")
         menu.addItem(item("打开生化工具", #selector(openLibrary)))
-        menu.addItem(item("氨基酸 · 20", #selector(openAmino)))
-        menu.addItem(item("官能团 · 24", #selector(openGroups)))
+        addToolMenus(to: menu)
         menu.addItem(.separator())
         menu.addItem(item("连接设置…", #selector(openSettings)))
         let pause = item("暂停桥接", #selector(pauseBridge))
@@ -115,10 +127,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func openSettings() { showSettings() }
     @objc private func openLibrary() { library?.show(near: menuAnchor) }
     @objc private func openAmino() { library?.show(kind: .aminoAcid, near: menuAnchor) }
+    @objc private func openPrimer() { library?.show(destination: .primer, near: menuAnchor) }
+    @objc private func openDNA() { library?.show(destination: .dna, near: menuAnchor) }
+    @objc private func openTranslation() { library?.show(destination: .translation, near: menuAnchor) }
+    @objc private func openProtein() { library?.show(destination: .protein, near: menuAnchor) }
+    @objc private func openDilution() { library?.show(destination: .dilution, near: menuAnchor) }
+    @objc private func openMolarity() { library?.show(destination: .molarity, near: menuAnchor) }
     @objc private func openGroups() { library?.show(kind: .functionalGroup, near: menuAnchor) }
     @objc private func pauseBridge() { bridge?.setEnabled(false) }
     @objc private func closeLibrary() { library?.hide() }
-    @objc private func focusSearch() { library?.show(); NotificationCenter.default.post(name: .bioChemFocusSearch, object: nil) }
+    @objc private func focusSearch() { library?.show(destination: .reference); NotificationCenter.default.post(name: .bioChemFocusSearch, object: nil) }
     @objc private func closeWindow() { NSApp.keyWindow?.orderOut(nil) }
     @objc private func quit() { NSApp.terminate(nil) }
 }
@@ -172,7 +190,7 @@ private struct AppSettingsView: View {
             } else {
                 VStack(alignment: .leading, spacing: 18) {
                     Label("正在独立使用生化工具", systemImage: "atom").font(.headline)
-                    Text("20 种氨基酸、24 种官能团和搜索均可直接使用，无需桌宠或辅助功能权限。")
+                    Text("资料查询、序列分析与溶液计算均可直接使用，无需桌宠或辅助功能权限。")
                     Text("需要从桌宠右键打开资料时，开启上方选项，再授权并点选桌宠。关闭此选项会断开连接并停止鼠标监听。")
                         .foregroundStyle(.secondary)
                     Button("返回生化资料", action: onOpenLibrary).buttonStyle(.borderedProminent).tint(.teal)
