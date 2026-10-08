@@ -17,7 +17,7 @@ Native macOS biochemical / molecular biology toolkit, built with Swift, SwiftUI 
 
 ## Screenshots
 
-The current main reference window and navigation were visually inspected. The native UI test source captures Main, Primer, Advanced, Primer Pair, Protein, Modifications, Batch and Calculators in Light/Dark with `XCTAttachment`. Full Xcode 27.0 is now available. UI execution began but was interrupted by other foreground windows; the complete regression screenshot set has **not** been approved. Testing has resumed and is currently waiting for the macOS “XCTest — Enable UI Automation” Touch ID/password verification (Documents access is approved). No mock screenshot is presented as a test result. After running the Xcode suite, review attachments in `work/xcode-validation.*/Tests.xcresult` before declaring UI acceptance.
+The final complete Xcode run produced 47 app screenshots, all visually inspected on 2026-10-08. Coverage includes Main, Primer, Advanced, Primer Pair, Protein, Modifications, Batch and Calculators in Light/Dark, plus empty/error/long-content states, scrolling and native file interactions. Genuine `XCTAttachment` captures remain in ignored `work/xcode-validation.NcO3Ro/Tests.xcresult`; screenshots and recordings are not uploaded with the source. See [Validation](VALIDATION.md) for results and scope.
 
 ## Reference Tools
 
