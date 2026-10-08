@@ -5,8 +5,8 @@ public protocol ScaledUnit: RawRepresentable, CaseIterable, Identifiable where R
 }
 public extension ScaledUnit { var id: String { rawValue } }
 public enum ConcentrationUnit: String, ScaledUnit {
-    case molar = "M", millimolar = "mM", micromolar = "μM"
-    public var scale: Double { switch self { case .molar: return 1; case .millimolar: return 1e-3; case .micromolar: return 1e-6 } }
+    case molar = "M", millimolar = "mM", micromolar = "μM", nanomolar = "nM"
+    public var scale: Double { switch self { case .molar: return 1; case .millimolar: return 1e-3; case .micromolar: return 1e-6; case .nanomolar: return 1e-9 } }
 }
 public enum VolumeUnit: String, ScaledUnit {
     case liter = "L", milliliter = "mL", microliter = "μL"

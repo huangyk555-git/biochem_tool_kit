@@ -41,7 +41,7 @@ public struct BioChemView: View {
             HStack(alignment: .center, spacing: 14) {
                 Image(systemName: "atom").font(.system(size: 29, weight: .light))
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("BioChem").font(.system(size: 25, weight: .semibold, design: .rounded))
+                    Text("biochem_tool_kit").font(.system(size: 25, weight: .semibold, design: .rounded))
                     Text("随手查一点生物化学").font(.system(size: 11)).foregroundStyle(.secondary)
                 }
                 Spacer()

@@ -11,7 +11,7 @@ public enum AnalysisError: LocalizedError, Equatable {
         case .malformedFASTA: return "FASTA header 必须位于序列之前，并以 > 开头。"
         case .tooLong: return "单次最多分析 100,000 个碱基或残基。"
         case .invalidNumber(let field): return "\(field)：请输入有效范围内的有限数值。"
-        case .unsuitablePrimer: return "General primer 近似法要求每条引物至少 14 nt；短序列请选择 Wallace。"
+        case .unsuitablePrimer: return "Basic 近似法要求每条引物至少 14 nt；短序列请选择 Wallace。"
         case .noChargeRoot: return "在 pH 0–14 中未找到净电荷为零的位置。"
         }
     }
@@ -25,7 +25,7 @@ public struct DNAResult {
     public var atPercent: Double { 100 - gcPercent }
     public var reversed: String { String(sequence.reversed()) }
     /// Complement is aligned antiparallel (3′→5′) to the input (5′→3′).
-    public var complement: String { String(sequence.map { SequenceUtilities.complementMap[$0]! }) }
+    public var complement: String { String(sequence.map { SequenceUtilities.complementMap[$0, default: $0] }) }
     public var reverseComplement: String { String(complement.reversed()) }
 }
 

@@ -15,17 +15,19 @@ struct CopyButton: View {
             NSPasteboard.general.clearContents()
             copied = NSPasteboard.general.setString(text, forType: .string)
         }.disabled(text.isEmpty).help(title)
+            .accessibilityIdentifier("copy." + title)
             .onChange(of: text) { _ in copied = false }
     }
 }
 struct ResultRow: View {
     let label: String
     let value: String
+    var identifier = ""
     var body: some View {
         HStack(alignment: .top) {
-            Text(label).foregroundStyle(.secondary)
+            Text(label).foregroundStyle(.secondary).fixedSize(horizontal:false,vertical:true)
             Spacer(minLength: 14)
-            Text(value).font(.system(.body, design: .monospaced)).textSelection(.enabled).multilineTextAlignment(.trailing)
+            Text(value).font(.system(.body, design: .monospaced)).textSelection(.enabled).multilineTextAlignment(.trailing).fixedSize(horizontal:false,vertical:true).accessibilityIdentifier(identifier).accessibilityLabel(label).accessibilityValue(value)
             CopyButton(title: "复制", text: value).controlSize(.small)
         }.padding(.vertical, 4)
     }
@@ -35,14 +37,15 @@ struct SequenceInput: View {
     @Binding var text: String
     var hint: String = "自动忽略空格与换行，并转为大写；非法字符会保留并提示。"
     var normalizeDNA: Bool = true
+    var identifier = ""
+    var onFileDrop: ((URL) -> Void)?
     var body: some View {
         VStack(alignment: .leading, spacing: 7) {
             Text(title).font(.headline)
-            TextEditor(text: $text).font(.system(.body, design: .monospaced))
+            NativeSequenceEditor(text: $text, title: title, identifier: identifier, onFileDrop: onFileDrop)
                 .frame(height: 95).padding(5)
                 .background(Color(nsColor: .textBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary.opacity(0.25)))
-                .accessibilityLabel(title)
                 .onChange(of: text) { value in
                     if normalizeDNA {
                         let normalized = SequenceUtilities.normalize(value)
@@ -64,14 +67,14 @@ struct ToolPage<Content: View>: View {
                 Text(subtitle).font(.subheadline).foregroundStyle(.secondary)
                 content
             }.padding(24).frame(maxWidth: 940, alignment: .leading).frame(maxWidth: .infinity)
-        }.background(Color(nsColor: .windowBackgroundColor))
+        }.background(Color(nsColor: .windowBackgroundColor)).accessibilityIdentifier("page." + title)
     }
 }
 struct CalculationFailure: View {
     let error: Error
     var body: some View {
         Label(error.localizedDescription, systemImage: "exclamationmark.circle")
-            .foregroundStyle(.orange).font(.callout).textSelection(.enabled)
+            .foregroundStyle(.orange).font(.callout).textSelection(.enabled).accessibilityIdentifier("analysis.error")
     }
 }
 struct SequenceOutput: View {
@@ -79,7 +82,7 @@ struct SequenceOutput: View {
     let sequence: String
     var body: some View {
         VStack(alignment: .leading, spacing: 7) {
-            HStack { Text(title).font(.headline); Spacer(); CopyButton(title: "复制", text: sequence) }
+            HStack { Text(title).font(.headline); Spacer(); CopyButton(title: "复制", text: sequence).accessibilityIdentifier("copy." + title) }
             Text(sequence.isEmpty ? "—" : sequence).font(.system(.body, design: .monospaced))
                 .textSelection(.enabled).lineLimit(8)
             if sequence.count > 80 { Text("最多显示 8 行；复制按钮始终复制完整序列。").font(.caption).foregroundStyle(.secondary) }

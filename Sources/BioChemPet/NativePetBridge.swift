@@ -54,7 +54,7 @@ final class NativePetBridge: ObservableObject {
         // Only the user's explicit button press may request the system prompt.
         _ = AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary)
         trusted = AXIsProcessTrusted()
-        if !trusted { status = "请在系统设置 → 隐私与安全性 → 辅助功能中开启 BioChem Bridge，然后返回这里。" }
+        if !trusted { status = "请在系统设置 → 隐私与安全性 → 辅助功能中开启 biochem_tool_kit，然后返回这里。" }
     }
     func refreshPermission(manual: Bool = true) {
         refreshHealth()
@@ -225,7 +225,7 @@ final class NativePetBridge: ObservableObject {
                 return consumed ? nil : Unmanaged.passUnretained(event)
             }, userInfo: Unmanaged.passUnretained(self).toOpaque()),
               let source = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, tap, 0) else {
-            status = "右键菜单监听未能启动。请重新开启 BioChem Bridge 的辅助功能权限，并重启本应用后重试。"
+            status = "右键菜单监听未能启动。请重新开启 biochem_tool_kit 的辅助功能权限，并重启本应用后重试。"
             return false
         }
         eventTap = tap; eventSource = source

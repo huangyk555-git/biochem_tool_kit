@@ -1,0 +1,441 @@
+// !$*UTF8*$!
+{
+"archiveVersion" = 1;
+"classes" = {
+};
+"objectVersion" = 56;
+"objects" = {
+"582681C2EAE02B3F3D399C0C" = {
+"isa" = "XCLocalSwiftPackageReference";
+"relativePath" = ".";
+};
+"29D444D8258CB17D97D4F800" = {
+"isa" = "PBXFileReference";
+"explicitFileType" = "wrapper.application";
+"includeInIndex" = 0;
+"path" = "biochem_tool_kit.app";
+"sourceTree" = "BUILT_PRODUCTS_DIR";
+};
+"98986AFE63CFC843B076B985" = {
+"isa" = "PBXFileReference";
+"lastKnownFileType" = "sourcecode.swift";
+"path" = "Sources/BioChemPet/App.swift";
+"sourceTree" = "SOURCE_ROOT";
+};
+"10A319248A19C1A3BFD6A4DB" = {
+"isa" = "PBXBuildFile";
+"fileRef" = "98986AFE63CFC843B076B985";
+};
+"C699FED2B6D909661AF93401" = {
+"isa" = "PBXFileReference";
+"lastKnownFileType" = "sourcecode.swift";
+"path" = "Sources/BioChemPet/NativePetBridge.swift";
+"sourceTree" = "SOURCE_ROOT";
+};
+"C8C2027AF93D636651FAAC97" = {
+"isa" = "PBXBuildFile";
+"fileRef" = "C699FED2B6D909661AF93401";
+};
+"FBA407D3760D6D8C8F0F7A32" = {
+"isa" = "PBXSourcesBuildPhase";
+"buildActionMask" = 2147483647;
+"files" = ("10A319248A19C1A3BFD6A4DB","C8C2027AF93D636651FAAC97",);
+"runOnlyForDeploymentPostprocessing" = 0;
+};
+"A7982B851939AACF78DEBB5C" = {
+"isa" = "XCSwiftPackageProductDependency";
+"package" = "582681C2EAE02B3F3D399C0C";
+"productName" = "BioChemCore";
+};
+"91114276A7D5A9E52975CC1F" = {
+"isa" = "PBXBuildFile";
+"productRef" = "A7982B851939AACF78DEBB5C";
+};
+"C898212E5F8E17BD9A3C54EB" = {
+"isa" = "XCSwiftPackageProductDependency";
+"package" = "582681C2EAE02B3F3D399C0C";
+"productName" = "BioChemUI";
+};
+"AE2A5E5706F84DA32FE9720D" = {
+"isa" = "PBXBuildFile";
+"productRef" = "C898212E5F8E17BD9A3C54EB";
+};
+"953F1FF344B7E476DCBA0052" = {
+"isa" = "PBXFrameworksBuildPhase";
+"buildActionMask" = 2147483647;
+"files" = ("91114276A7D5A9E52975CC1F","AE2A5E5706F84DA32FE9720D",);
+"runOnlyForDeploymentPostprocessing" = 0;
+};
+"549CE364A8B85776B992FB88" = {
+"isa" = "PBXResourcesBuildPhase";
+"buildActionMask" = 2147483647;
+"files" = ();
+"runOnlyForDeploymentPostprocessing" = 0;
+};
+"46E4FF803BEDCF9E3DA8045A" = {
+"isa" = "XCBuildConfiguration";
+"name" = "Debug";
+"buildSettings" = {
+"MACOSX_DEPLOYMENT_TARGET" = "13.0";
+"SDKROOT" = "macosx";
+"SWIFT_VERSION" = "5.0";
+"CODE_SIGN_IDENTITY" = "-";
+"CODE_SIGN_STYLE" = "Manual";
+"COMBINE_HIDPI_IMAGES" = "YES";
+"PRODUCT_NAME" = "biochem_tool_kit";
+"PRODUCT_MODULE_NAME" = "BioChemPet";
+"EXECUTABLE_NAME" = "BioChemPet";
+"PRODUCT_BUNDLE_IDENTIFIER" = "local.biochem.bridge";
+"INFOPLIST_FILE" = "Config/Info.plist";
+"LD_RUNPATH_SEARCH_PATHS" = "$(inherited) @executable_path/../Frameworks";
+"ENABLE_HARDENED_RUNTIME" = "NO";
+"SWIFT_OPTIMIZATION_LEVEL" = "-Onone";
+"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "DEBUG";
+"ENABLE_TESTABILITY" = "YES";
+};
+};
+"CFE4B1D3F082FC84BC4AACA1" = {
+"isa" = "XCBuildConfiguration";
+"name" = "Release";
+"buildSettings" = {
+"MACOSX_DEPLOYMENT_TARGET" = "13.0";
+"SDKROOT" = "macosx";
+"SWIFT_VERSION" = "5.0";
+"CODE_SIGN_IDENTITY" = "-";
+"CODE_SIGN_STYLE" = "Manual";
+"COMBINE_HIDPI_IMAGES" = "YES";
+"PRODUCT_NAME" = "biochem_tool_kit";
+"PRODUCT_MODULE_NAME" = "BioChemPet";
+"EXECUTABLE_NAME" = "BioChemPet";
+"PRODUCT_BUNDLE_IDENTIFIER" = "local.biochem.bridge";
+"INFOPLIST_FILE" = "Config/Info.plist";
+"LD_RUNPATH_SEARCH_PATHS" = "$(inherited) @executable_path/../Frameworks";
+"ENABLE_HARDENED_RUNTIME" = "NO";
+"SWIFT_OPTIMIZATION_LEVEL" = "-O";
+"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "";
+"ENABLE_TESTABILITY" = "NO";
+};
+};
+"E5283978866B073E785B7AFE" = {
+"isa" = "XCConfigurationList";
+"buildConfigurations" = ("46E4FF803BEDCF9E3DA8045A","CFE4B1D3F082FC84BC4AACA1",);
+"defaultConfigurationIsVisible" = 0;
+"defaultConfigurationName" = "Release";
+};
+"B71E3E98E36C66379E9E7BCE" = {
+"isa" = "PBXNativeTarget";
+"name" = "biochem_tool_kit";
+"productName" = "biochem_tool_kit";
+"productReference" = "29D444D8258CB17D97D4F800";
+"productType" = "com.apple.product-type.application";
+"buildConfigurationList" = "E5283978866B073E785B7AFE";
+"buildPhases" = ("FBA407D3760D6D8C8F0F7A32","953F1FF344B7E476DCBA0052","549CE364A8B85776B992FB88",);
+"buildRules" = ();
+"dependencies" = ();
+"packageProductDependencies" = ("A7982B851939AACF78DEBB5C","C898212E5F8E17BD9A3C54EB",);
+};
+"2A27051E33C7EF18FED55C8F" = {
+"isa" = "PBXFileReference";
+"explicitFileType" = "wrapper.cfbundle";
+"includeInIndex" = 0;
+"path" = "BioChemCoreTests.xctest";
+"sourceTree" = "BUILT_PRODUCTS_DIR";
+};
+"327B27F21AE56433A345AA03" = {
+"isa" = "PBXFileReference";
+"lastKnownFileType" = "sourcecode.swift";
+"path" = "Tests/BioChemCoreTests/AdvancedTests.swift";
+"sourceTree" = "SOURCE_ROOT";
+};
+"A2038F9BA9CE16BFCB07C76C" = {
+"isa" = "PBXBuildFile";
+"fileRef" = "327B27F21AE56433A345AA03";
+};
+"160C088DD75B031D69173C5B" = {
+"isa" = "PBXFileReference";
+"lastKnownFileType" = "sourcecode.swift";
+"path" = "Tests/BioChemCoreTests/AnalysisTests.swift";
+"sourceTree" = "SOURCE_ROOT";
+};
+"E0884CEE6317DD7B448B7A20" = {
+"isa" = "PBXBuildFile";
+"fileRef" = "160C088DD75B031D69173C5B";
+};
+"FDF0A6B6B7012D0CF3BF540F" = {
+"isa" = "PBXFileReference";
+"lastKnownFileType" = "sourcecode.swift";
+"path" = "Tests/BioChemCoreTests/CatalogTests.swift";
+"sourceTree" = "SOURCE_ROOT";
+};
+"1F52E6494727078A75578238" = {
+"isa" = "PBXBuildFile";
+"fileRef" = "FDF0A6B6B7012D0CF3BF540F";
+};
+"AEB60B2245BC8AED1F44A634" = {
+"isa" = "PBXSourcesBuildPhase";
+"buildActionMask" = 2147483647;
+"files" = ("A2038F9BA9CE16BFCB07C76C","E0884CEE6317DD7B448B7A20","1F52E6494727078A75578238",);
+"runOnlyForDeploymentPostprocessing" = 0;
+};
+"5BACB9F8FC77C4D6BACB5103" = {
+"isa" = "XCSwiftPackageProductDependency";
+"package" = "582681C2EAE02B3F3D399C0C";
+"productName" = "BioChemCore";
+};
+"6E2615816CA35DAD0E3C5B43" = {
+"isa" = "PBXBuildFile";
+"productRef" = "5BACB9F8FC77C4D6BACB5103";
+};
+"EF72E5BCB920C5E4A8343D36" = {
+"isa" = "XCSwiftPackageProductDependency";
+"package" = "582681C2EAE02B3F3D399C0C";
+"productName" = "BioChemTestSupport";
+};
+"42045A6921E3630DA077D1C2" = {
+"isa" = "PBXBuildFile";
+"productRef" = "EF72E5BCB920C5E4A8343D36";
+};
+"72D42A42355790DDA73B9EEF" = {
+"isa" = "PBXFrameworksBuildPhase";
+"buildActionMask" = 2147483647;
+"files" = ("6E2615816CA35DAD0E3C5B43","42045A6921E3630DA077D1C2",);
+"runOnlyForDeploymentPostprocessing" = 0;
+};
+"4BF2708B962AC844A619152E" = {
+"isa" = "PBXResourcesBuildPhase";
+"buildActionMask" = 2147483647;
+"files" = ();
+"runOnlyForDeploymentPostprocessing" = 0;
+};
+"79F2DEF1BED82FDE18E9388C" = {
+"isa" = "XCBuildConfiguration";
+"name" = "Debug";
+"buildSettings" = {
+"MACOSX_DEPLOYMENT_TARGET" = "14.0";
+"SDKROOT" = "macosx";
+"SWIFT_VERSION" = "5.0";
+"CODE_SIGN_IDENTITY" = "-";
+"CODE_SIGN_STYLE" = "Manual";
+"COMBINE_HIDPI_IMAGES" = "YES";
+"PRODUCT_NAME" = "$(TARGET_NAME)";
+"PRODUCT_BUNDLE_IDENTIFIER" = "local.biochem.coretests";
+"GENERATE_INFOPLIST_FILE" = "YES";
+"LD_RUNPATH_SEARCH_PATHS" = "$(inherited) @loader_path/../Frameworks";
+"SWIFT_OPTIMIZATION_LEVEL" = "-Onone";
+"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "DEBUG";
+"ENABLE_TESTABILITY" = "YES";
+};
+};
+"6D72FC25E5E7B7E1B4A2FA2E" = {
+"isa" = "XCBuildConfiguration";
+"name" = "Release";
+"buildSettings" = {
+"MACOSX_DEPLOYMENT_TARGET" = "14.0";
+"SDKROOT" = "macosx";
+"SWIFT_VERSION" = "5.0";
+"CODE_SIGN_IDENTITY" = "-";
+"CODE_SIGN_STYLE" = "Manual";
+"COMBINE_HIDPI_IMAGES" = "YES";
+"PRODUCT_NAME" = "$(TARGET_NAME)";
+"PRODUCT_BUNDLE_IDENTIFIER" = "local.biochem.coretests";
+"GENERATE_INFOPLIST_FILE" = "YES";
+"LD_RUNPATH_SEARCH_PATHS" = "$(inherited) @loader_path/../Frameworks";
+"SWIFT_OPTIMIZATION_LEVEL" = "-O";
+"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "";
+"ENABLE_TESTABILITY" = "NO";
+};
+};
+"91514F50B693046257BF474D" = {
+"isa" = "XCConfigurationList";
+"buildConfigurations" = ("79F2DEF1BED82FDE18E9388C","6D72FC25E5E7B7E1B4A2FA2E",);
+"defaultConfigurationIsVisible" = 0;
+"defaultConfigurationName" = "Release";
+};
+"D586795729BC4BABEA787B93" = {
+"isa" = "PBXNativeTarget";
+"name" = "BioChemCoreTests";
+"productName" = "BioChemCoreTests";
+"productReference" = "2A27051E33C7EF18FED55C8F";
+"productType" = "com.apple.product-type.bundle.unit-test";
+"buildConfigurationList" = "91514F50B693046257BF474D";
+"buildPhases" = ("AEB60B2245BC8AED1F44A634","72D42A42355790DDA73B9EEF","4BF2708B962AC844A619152E",);
+"buildRules" = ();
+"dependencies" = ();
+"packageProductDependencies" = ("5BACB9F8FC77C4D6BACB5103","EF72E5BCB920C5E4A8343D36",);
+};
+"BE0BE3FC9C988569259691B3" = {
+"isa" = "PBXContainerItemProxy";
+"containerPortal" = "98F54143AB4E86B28C3AFEE0";
+"proxyType" = 1;
+"remoteGlobalIDString" = "B71E3E98E36C66379E9E7BCE";
+"remoteInfo" = "biochem_tool_kit";
+};
+"3D62BC79DF68B356B815FB90" = {
+"isa" = "PBXTargetDependency";
+"target" = "B71E3E98E36C66379E9E7BCE";
+"targetProxy" = "BE0BE3FC9C988569259691B3";
+};
+"8C8BD929572A296724FB20EA" = {
+"isa" = "PBXFileReference";
+"explicitFileType" = "wrapper.cfbundle";
+"includeInIndex" = 0;
+"path" = "biochem_tool_kitUITests.xctest";
+"sourceTree" = "BUILT_PRODUCTS_DIR";
+};
+"7197B1D725C134C8A5DD6812" = {
+"isa" = "PBXFileReference";
+"lastKnownFileType" = "sourcecode.swift";
+"path" = "UITests/biochem_tool_kitUITests.swift";
+"sourceTree" = "SOURCE_ROOT";
+};
+"84562245EF19C23492E9CFE5" = {
+"isa" = "PBXBuildFile";
+"fileRef" = "7197B1D725C134C8A5DD6812";
+};
+"9C2D2877B51189A04A15EEE6" = {
+"isa" = "PBXSourcesBuildPhase";
+"buildActionMask" = 2147483647;
+"files" = ("84562245EF19C23492E9CFE5",);
+"runOnlyForDeploymentPostprocessing" = 0;
+};
+"0B253FBFD15F6FB13AA047EA" = {
+"isa" = "PBXFrameworksBuildPhase";
+"buildActionMask" = 2147483647;
+"files" = ();
+"runOnlyForDeploymentPostprocessing" = 0;
+};
+"2C319DECE54C831921B0AE38" = {
+"isa" = "PBXResourcesBuildPhase";
+"buildActionMask" = 2147483647;
+"files" = ();
+"runOnlyForDeploymentPostprocessing" = 0;
+};
+"CDC265281A6FFD2F4FFD4440" = {
+"isa" = "XCBuildConfiguration";
+"name" = "Debug";
+"buildSettings" = {
+"MACOSX_DEPLOYMENT_TARGET" = "14.0";
+"SDKROOT" = "macosx";
+"SWIFT_VERSION" = "5.0";
+"CODE_SIGN_IDENTITY" = "-";
+"CODE_SIGN_STYLE" = "Manual";
+"COMBINE_HIDPI_IMAGES" = "YES";
+"PRODUCT_NAME" = "$(TARGET_NAME)";
+"PRODUCT_BUNDLE_IDENTIFIER" = "local.biochem.uitests";
+"GENERATE_INFOPLIST_FILE" = "YES";
+"TEST_TARGET_NAME" = "biochem_tool_kit";
+"LD_RUNPATH_SEARCH_PATHS" = "$(inherited) @loader_path/../Frameworks";
+"SWIFT_OPTIMIZATION_LEVEL" = "-Onone";
+"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "DEBUG";
+"ENABLE_TESTABILITY" = "YES";
+};
+};
+"CB0E07F3B85C77E7A78C8AA2" = {
+"isa" = "XCBuildConfiguration";
+"name" = "Release";
+"buildSettings" = {
+"MACOSX_DEPLOYMENT_TARGET" = "14.0";
+"SDKROOT" = "macosx";
+"SWIFT_VERSION" = "5.0";
+"CODE_SIGN_IDENTITY" = "-";
+"CODE_SIGN_STYLE" = "Manual";
+"COMBINE_HIDPI_IMAGES" = "YES";
+"PRODUCT_NAME" = "$(TARGET_NAME)";
+"PRODUCT_BUNDLE_IDENTIFIER" = "local.biochem.uitests";
+"GENERATE_INFOPLIST_FILE" = "YES";
+"TEST_TARGET_NAME" = "biochem_tool_kit";
+"LD_RUNPATH_SEARCH_PATHS" = "$(inherited) @loader_path/../Frameworks";
+"SWIFT_OPTIMIZATION_LEVEL" = "-O";
+"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "";
+"ENABLE_TESTABILITY" = "NO";
+};
+};
+"7817920447BA7806D0DDD6E1" = {
+"isa" = "XCConfigurationList";
+"buildConfigurations" = ("CDC265281A6FFD2F4FFD4440","CB0E07F3B85C77E7A78C8AA2",);
+"defaultConfigurationIsVisible" = 0;
+"defaultConfigurationName" = "Release";
+};
+"3ECDFDCE1E549EAE36A37FC6" = {
+"isa" = "PBXNativeTarget";
+"name" = "biochem_tool_kitUITests";
+"productName" = "biochem_tool_kitUITests";
+"productReference" = "8C8BD929572A296724FB20EA";
+"productType" = "com.apple.product-type.bundle.ui-testing";
+"buildConfigurationList" = "7817920447BA7806D0DDD6E1";
+"buildPhases" = ("9C2D2877B51189A04A15EEE6","0B253FBFD15F6FB13AA047EA","2C319DECE54C831921B0AE38",);
+"buildRules" = ();
+"dependencies" = ("3D62BC79DF68B356B815FB90",);
+"packageProductDependencies" = ();
+};
+"FBDC4F23F93125BBEEAE800C" = {
+"isa" = "PBXGroup";
+"name" = "Products";
+"sourceTree" = "<group>";
+"children" = ("29D444D8258CB17D97D4F800","2A27051E33C7EF18FED55C8F","8C8BD929572A296724FB20EA",);
+};
+"41D3B8310FAFECFBB479A1E5" = {
+"isa" = "PBXFileReference";
+"lastKnownFileType" = "text.plist.xml";
+"path" = "Config/Info.plist";
+"sourceTree" = "SOURCE_ROOT";
+};
+"E50290A24C49A459B43487C5" = {
+"isa" = "PBXGroup";
+"sourceTree" = "<group>";
+"children" = ("98986AFE63CFC843B076B985","C699FED2B6D909661AF93401","327B27F21AE56433A345AA03","160C088DD75B031D69173C5B","FDF0A6B6B7012D0CF3BF540F","7197B1D725C134C8A5DD6812","41D3B8310FAFECFBB479A1E5","FBDC4F23F93125BBEEAE800C",);
+};
+"89E1FD6268CC0F221A2BE178" = {
+"isa" = "XCBuildConfiguration";
+"name" = "Debug";
+"buildSettings" = {
+"CLANG_ENABLE_MODULES" = "YES";
+"SDKROOT" = "macosx";
+"MACOSX_DEPLOYMENT_TARGET" = "13.0";
+"SWIFT_OPTIMIZATION_LEVEL" = "-Onone";
+"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "DEBUG";
+"ENABLE_TESTABILITY" = "YES";
+};
+};
+"E6DE6C99132752C914FEF632" = {
+"isa" = "XCBuildConfiguration";
+"name" = "Release";
+"buildSettings" = {
+"CLANG_ENABLE_MODULES" = "YES";
+"SDKROOT" = "macosx";
+"MACOSX_DEPLOYMENT_TARGET" = "13.0";
+"SWIFT_OPTIMIZATION_LEVEL" = "-O";
+"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "";
+"ENABLE_TESTABILITY" = "NO";
+};
+};
+"862894B703A6DEDF96A9DD6C" = {
+"isa" = "XCConfigurationList";
+"buildConfigurations" = ("89E1FD6268CC0F221A2BE178","E6DE6C99132752C914FEF632",);
+"defaultConfigurationIsVisible" = 0;
+"defaultConfigurationName" = "Release";
+};
+"98F54143AB4E86B28C3AFEE0" = {
+"isa" = "PBXProject";
+"attributes" = {
+"LastUpgradeCheck" = "1600";
+"TargetAttributes" = {
+"3ECDFDCE1E549EAE36A37FC6" = {
+"TestTargetID" = "B71E3E98E36C66379E9E7BCE";
+};
+};
+};
+"buildConfigurationList" = "862894B703A6DEDF96A9DD6C";
+"compatibilityVersion" = "Xcode 14.0";
+"developmentRegion" = "en";
+"knownRegions" = ("en","Base",);
+"mainGroup" = "E50290A24C49A459B43487C5";
+"productRefGroup" = "FBDC4F23F93125BBEEAE800C";
+"projectDirPath" = "";
+"projectRoot" = "";
+"targets" = ("B71E3E98E36C66379E9E7BCE","D586795729BC4BABEA787B93","3ECDFDCE1E549EAE36A37FC6",);
+"packageReferences" = ("582681C2EAE02B3F3D399C0C",);
+};
+};
+"rootObject" = "98F54143AB4E86B28C3AFEE0";
+}

@@ -1,37 +1,74 @@
-# BioChem 生化速查 0.4.1 验证记录
+# biochem_tool_kit — validation status
 
-日期：2026-09-20。环境：macOS 15.3.2、Apple Silicon、Swift 6.1.2。
+Date: 2026-10-08. Final local build/test/visual acceptance passed; source and staged safety are checked before the source commit.
 
-## 0.4.1 本次变更验证
+## Environment
 
-- 已移除测试桌宠小窗及绘制代码，设置中改为直接“预览右键菜单”，不创建额外桌面悬浮窗口。
-- Debug / Release 构建、Info.plist 格式检查、应用签名校验通过。
-- 实际预览共用右键菜单，确认显示“关闭资料窗口”和“退出生化工具”。
-- 执行“关闭资料窗口”后再次预览，该选项变为禁用，确认资料窗口已隐藏。
-- 退出菜单项绑定到现有 quit 动作，与 ⌘Q 共用；实际执行 ⌘Q 后应用列表报告 isRunning=false。由于菜单自动化焦点不稳定，未把菜单退出项目的直接点击记为已验证。
-- 保留用户已确认成功的 Codex 桌宠右键连接；本次没有自动操作 Codex 本体。
+- Xcode 27.0 (27A266a), `/Applications/Xcode.app/Contents/Developer`.
+- macOS 27.0 (26A428), arm64. App minimum macOS 13; native test targets minimum macOS 14 for the current XCTest framework.
+- Branch `main`; base commit `691803f7ce5bfc89e7313e1ef1bdfa1968ee3d0f`.
+- Origin unchanged: `https://github.com/huangyk555-git/biochem_tool_kit.git`.
+- System Documents and XCTest automation prompts were approved normally. No security mechanism disabled.
 
-## 0.4 已通过的回归记录
+## Actual results
 
-- Debug / Release 构建、Info.plist 格式检查与应用签名校验。
-- 62 项资料、搜索、资源、右键序列和绑定规则回归检查。
-- 首次启动直接显示生化资料库，具有设置入口与标准窗口操作，不弹授权或连接窗口。
-- 设置中“连接 Codex 桌宠”首次默认关闭；开启后显示授权和点选步骤；关闭后收起步骤并回到独立使用状态。
-- 开启选项后退出并重启，仍先打开资料库，设置中的开关保留为开启。
-- 随后关闭选项，返回资料库并搜索 Tyr，正确显示唯一的酪氨酸条目。
-- 检查开启状态下的设置布局，所有按钮与说明完整可见。
-- 通过代码检查确认关闭模块会移除全局鼠标监视器、事件 tap、健康检查与点选计时器，并取消待显示菜单。未在本次自动化中重新操作真实 Codex 桌宠。
+| Check | Result |
+| --- | --- |
+| Native Debug | PASS in current complete run |
+| Native Release | PASS, arm64 |
+| XCTest | 35 executed, 35 passed, 0 failed |
+| XCUITest | 10 executed, 10 passed, 0 failed in one complete run |
+| Portable regression | 112 passed, 0 failed in Debug and Release |
+| Scientific comparison | 60 passed, Biopython 1.85 |
+| Light / Dark visual review | PASS: 47 final app captures inspected, including empty/error/long states, scrolling, modified results and file drop |
+| Native file open | PASS: .fasta, .fa, .faa, .fna |
+| Finder drag/drop | PASS in final complete run; fixture window explicitly selected |
+| Native export | PASS: CSV, TSV, FASTA; exact UTF-8 contents read back |
+| Clipboard | PASS: primer, reverse complement, summary, protein, translation, batch |
+| Source safety | 65 source candidates scanned; no secret, private-key, user-path or build-artifact findings; 51 staged files also audited with no findings |
+| Local acceptance | PASS; Git commit/push outcome is reported separately |
 
-## 真实宿主验证进展
+## Actual fixes
 
-用户已反馈 0.3 版本成功完成连接；更新前本应用界面显示辅助功能已就绪、右键菜单曾显示 3 次。本次更新后的本地签名暂未被系统认定为已授权，连接功能开启后会显示内置的重新授权提示；独立查询不受影响。本次保留已成功的右键桥接实现，将其移入 App 的可选设置，并修复关闭模块时清理点选超时回调的生命周期问题。
+- Distinct native app target avoids collision with the Swift Package executable; architecture selection is consistent for app/package targets.
+- The Xcode script builds an exact source snapshot in a temporary workspace and preserves genuine results, including failures, in ignored `work/`.
+- Retained native tab pages replace overlapping hidden editors, preserving state while keeping inactive editors out of the visible view hierarchy.
+- Native sequence editor supports real text input, accessibility value notifications and file drops. Updated result accessibility values track recalculation.
+- Advanced settings expand reliably; copy identifiers remain stable; batch export includes copy; long labels and results wrap.
+- Test helpers verify actual pasted values, scroll interactive controls, read static results without requiring hit testing, and resolve Finder drag endpoints relative to its window.
+- Finder tests raise their exact fixture window through the native Window menu before any pointer operation; target geometry is captured before switching apps.
+- File-panel confirmation waits for an enabled, hittable native OK button and clicks it; directory navigation could outlast two consecutive Return events.
+- Native open/save panels are attached to the app window and tested through their actual user interface.
 
-自动化验证只操作本应用的界面。真实 Codex 桌宠仍由用户点选；绑定不会跨应用重启保存。测试桌宠不等同于跨进程监听验证。
+## System file-panel crash diagnosis
 
-## 使用限制
+A failed TSV save produced a crash attachment for Apple's `com.apple.appkit.xpc.openAndSavePanelService`: EXC_BREAKPOINT/SIGTRAP in AppKit text-input handling with an SCIM input-method thread. The main application remained running. All four opens and CSV export had already passed in that run. This explains the observed panel disappearing and cancel callback; it is not a serialization failure.
 
-窗口区域模式只响应人工确认的小区域，不能自动跟随桌宠在同一窗口内部的布局变化；从区域内开始左键拖动、窗口改尺寸、进程退出或 AX 元素失效会要求重新绑定。布局或宠物变化时应主动重新点选。
+Tests now temporarily select an ASCII-capable keyboard and restore the original input source after each test. The complete native open/CSV/TSV/FASTA scenario subsequently passed. This is a test-environment workaround, not a macOS fix or certification of Chinese-input-method compatibility on this OS build. Clipboard contents are also restored. No permissions, sandbox, Gatekeeper or other security controls are bypassed.
 
-菜单由桥接程序提供，不是 Codex 官方自定义菜单接口。Option + 右键放行宿主原有事件。绑定只保存在内存，重启后需重新点选。
+The historical tool-specific `Sky Computer Use native pipe closed before response` error was not independently reproduced. Earlier thread samples showed an idle app, and actual permission dialogs explained earlier blocked runs. Do not equate that old transport error with a proven application crash.
 
-采用本地 ad-hoc 签名，更新代码后辅助功能权限可能需要重新添加；没有 Developer ID 公证。本机未安装完整 Xcode，运行的是 `BioChemCheck`，原有 XCTest 文件保留。
+## Local evidence — ignored, never uploaded
+
+- `work/xcode-validation.NcO3Ro/Tests.xcresult`: successful final complete test run.
+- `work/accepted-captures-20261008/`: 47 final app screenshots and review sheets.
+
+- `work/validation-final-20261008.log`: final Debug, 35 unit/10 UI passes, and Release.
+- `work/validation-20261008.log`: preceding 9/10 UI run; native confirmation race diagnosed from recording.
+- `work/file-confirm-20261008.log`: native confirm-button fix passed all open/export checks.
+- `work/drop-menu-20261008.log`: native Finder menu selection and full drop scenario passed.
+- `work/checks-20261008.log`, `work/scientific-comparison-20261008.log`: 112 checks and 60 comparisons passed.
+- `work/validation-final-20260923.log`: preceding complete run, 35 unit passes and 9/10 UI passes.
+- `work/drop-stability-clean.log`: three consecutive complete Finder-drop passes.
+- `work/final-captures-1/`: 44 inspected app screenshots including wrapping fix.
+- `work/ui-files-ascii.log` and `.xcresult`: complete native file scenario passed.
+- `work/ui-files-events.xcresult`: actual system crash attachment and preceding successful open/CSV steps.
+- `work/ui-interaction-final.log`: clipboard, Finder drop, protein options and calculators passed; earlier native file attempt failed.
+- `work/validation-captures-20260923/`: 41 inspected earlier app captures and contact sheets.
+- `work/final-checks-debug-20260923.log`, `work/final-checks-release.log`: 112 checks each.
+- `work/final-scientific-comparison-20260923.log`: 60 independent comparisons.
+- `work/source-safety-20260923.json`: prior source audit.
+
+Full-desktop recordings and crash reports may contain local host information; they remain ignored. No Release, tag, DMG, Developer ID signing, notarization or force push. Optional live Codex pet binding is preserved, but these ten UI tests do not newly certify third-party desktop integration.
+
+Final warnings: Xcode reports skipped App Intents metadata extraction because this app does not use AppIntents; no source compiler warning or build error remains in the successful final run. No tests were removed, skipped or weakened.

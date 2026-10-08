@@ -63,3 +63,7 @@ notary-credentials*
 *.swp
 *.swo
 *~
+
+# Xcode test results and local regression captures
+*.xcresult/
+TestResults/

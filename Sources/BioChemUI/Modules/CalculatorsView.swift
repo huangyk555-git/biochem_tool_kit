@@ -31,7 +31,7 @@ struct DilutionToolsView: View {
             switch Result(catching: solve) {
             case .failure(let error): CalculationFailure(error: error)
             case .success(let r):
-                ResultRow(label: "\(unknown.title)", value: display(r[unknown], variable: unknown))
+                ResultRow(label: "\(unknown.title)", value: display(r[unknown], variable: unknown), identifier:"calculator.dilutionResult")
                 CopyButton(title: "Copy result", text: DilutionVariable.allCases.map { "\($0.title): \(display(r[$0], variable: $0))" }.joined(separator: "\n"))
             }
             Text("内部使用 M 与 L。各已知量必须大于 0；拒绝 C2 > C1 或 V1 > V2 的非稀释条件。V2 指最终总体积，应定容至 V2，而不是再加入 V2 的溶剂。")
@@ -71,17 +71,17 @@ struct MolarityToolsView: View {
         ToolPage(title: "Molarity / Mass", subtitle: "Required mass · 按所填分子量和目标摩尔浓度计算") {
             HStack {
                 Text("Molecular weight").frame(width: 170, alignment: .leading)
-                TextField("例如 58.44", text: $mw).textFieldStyle(.roundedBorder).accessibilityLabel("Molecular weight")
+                TextField("例如 58.44", text: $mw).textFieldStyle(.roundedBorder).accessibilityLabel("Molecular weight").accessibilityIdentifier("calculator.mwInput")
                 Text("g/mol").frame(width: 90)
             }
             HStack {
                 Text("Target concentration").frame(width: 170, alignment: .leading)
-                TextField("例如 100", text: $concentration).textFieldStyle(.roundedBorder).accessibilityLabel("Target concentration")
+                TextField("例如 100", text: $concentration).textFieldStyle(.roundedBorder).accessibilityLabel("Target concentration").accessibilityIdentifier("calculator.concentrationInput")
                 UnitPicker(selection: $cUnit)
             }
             HStack {
                 Text("Final volume").frame(width: 170, alignment: .leading)
-                TextField("例如 10", text: $volume).textFieldStyle(.roundedBorder).accessibilityLabel("Final volume")
+                TextField("例如 10", text: $volume).textFieldStyle(.roundedBorder).accessibilityLabel("Final volume").accessibilityIdentifier("calculator.volumeInput")
                 UnitPicker(selection: $vUnit)
             }
             HStack { Text("Mass unit"); UnitPicker(selection: $mUnit) }
@@ -91,7 +91,7 @@ struct MolarityToolsView: View {
                 volume: UnitConverter.number(volume, field: "Final volume"), volumeUnit: vUnit, massUnit: mUnit) }) {
             case .failure(let error): CalculationFailure(error: error)
             case .success(let mass):
-                ResultRow(label: "Required mass", value: "\(numeric(mass, digits: 6)) \(mUnit.rawValue)")
+                ResultRow(label: "Required mass", value: "\(numeric(mass, digits: 6)) \(mUnit.rawValue)", identifier:"calculator.massResult")
             }
             Text("内部以 mol/L、L、g 计算。请使用实际盐型或水合物的分子量；默认纯度 100%，未做纯度修正。最终体积为定容体积。")
                 .font(.caption).foregroundStyle(.secondary)

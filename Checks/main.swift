@@ -16,6 +16,11 @@ func rejected(_ json: [String: Any]) throws -> Bool {
 }
 
 do {
+    if CommandLine.arguments.contains("--scientific-json") {
+        let data = try JSONSerialization.data(withJSONObject:ScientificAudit.report(),options:[.prettyPrinted,.sortedKeys])
+        FileHandle.standardOutput.write(data)
+        exit(0)
+    }
     let catalog = try Catalog.bundled()
     try check("20 standard amino acids", catalog.entries.filter { $0.kind == .aminoAcid }.count == 20)
     try check("24 functional groups", catalog.entries.filter { $0.kind == .functionalGroup }.count == 24)
@@ -90,7 +95,7 @@ do {
     try check("region invalidates on resize", region.resolve(in: CGRect(x: 100, y: 200, width: 600, height: 500)) == nil)
     try check("region rejects clicks outside window", PetRegionAnchor(window: originalWindow, point: CGPoint(x: 0, y: 0)) == nil)
     try check("region clips to window", PetRegionAnchor(window: originalWindow, point: CGPoint(x: 110, y: 210))!.relative.minX == 0)
-    for test in AnalysisChecks.all {
+    for test in AnalysisChecks.all + AdvancedChecks.all {
         try test.run()
         try check(test.name, true)
     }

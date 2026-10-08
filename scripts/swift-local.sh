@@ -5,9 +5,10 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p .build/module-cache .build/cache
 export CLANG_MODULE_CACHE_PATH="$PWD/.build/module-cache"
-TOOLCHAIN="$(xcode-select -p)/usr/lib/swift/pm/ManifestAPI/PackageDescription.swiftmodule"
+DEVELOPER_ROOT="${DEVELOPER_DIR:-$(xcode-select -p)}"
+TOOLCHAIN="$DEVELOPER_ROOT/usr/lib/swift/pm/ManifestAPI/PackageDescription.swiftmodule"
 OVERLAY="$PWD/.build/manifest-interface-overlay.json"
-python3 - "$TOOLCHAIN" "$OVERLAY" "$(xcode-select -p)/usr/include/swift" <<'PY'
+python3 - "$TOOLCHAIN" "$OVERLAY" "$DEVELOPER_ROOT/usr/include/swift" <<'PY'
 import json, sys
 from pathlib import Path
 roots=[]

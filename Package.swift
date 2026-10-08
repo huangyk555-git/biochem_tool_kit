@@ -7,6 +7,7 @@ let package = Package(
     products: [
         .library(name: "BioChemCore", targets: ["BioChemCore"]),
         .library(name: "BioChemUI", targets: ["BioChemUI"]),
+        .library(name: "BioChemTestSupport", targets: ["BioChemTestSupport"]),
         .executable(name: "BioChemPet", targets: ["BioChemPet"])
     ],
     targets: [

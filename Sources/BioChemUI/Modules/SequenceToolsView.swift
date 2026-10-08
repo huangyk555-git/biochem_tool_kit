@@ -8,7 +8,7 @@ struct SequenceToolsView: View {
     @State private var stopAtStop = true
     var body: some View {
         ToolPage(title: translation ? "Translation" : "DNA Tools", subtitle: translation ? "Standard genetic code · NCBI table 1" : "DNA sequence inspection · 仅接受 A/T/G/C") {
-            SequenceInput(title: "DNA sequence · 5′ → 3′", text: $input)
+            SequenceInput(title: "DNA / single FASTA · 5′ → 3′", text: $input, normalizeDNA: false, identifier: translation ? "translation.sequenceInput" : "dna.sequenceInput")
             if translation {
                 HStack {
                     Picker("Reading frame", selection: $frame) { ForEach(1...3, id: \.self) { Text("+\($0)").tag($0) } }.frame(width: 200)
@@ -23,10 +23,11 @@ struct SequenceToolsView: View {
         }
     }
     @ViewBuilder private var dnaResults: some View {
-        switch Result(catching: { try SequenceUtilities.dna(input) }) {
+        switch Result(catching: { try SequenceUtilities.dnaFASTA(input) }) {
         case .failure(let error): CalculationFailure(error: error)
         case .success(let r):
             ResultRow(label: "Sequence length", value: "\(r.length) nt")
+            ResultRow(label: "A / T / G / C", value: "ATGC".map { String(r.counts[$0,default:0]) }.joined(separator:" / "))
             ResultRow(label: "GC content", value: "\(numeric(r.gcPercent))%")
             SequenceOutput(title: "Normalized sequence · 5′ → 3′", sequence: r.sequence)
             SequenceOutput(title: "Reverse · 仅字符顺序反转", sequence: r.reversed)

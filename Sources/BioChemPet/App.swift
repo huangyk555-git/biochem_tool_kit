@@ -30,10 +30,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 bridge.onContextMenu = { [weak self] anchor, point in self?.showPetMenu(near: anchor, at: point) }
                 bridge.onCalibrationResult = { [weak self] in self?.showSettings() }
             }
+            #if DEBUG
+            if !ProcessInfo.processInfo.arguments.contains("--ui-testing") { connection.restorePreference() }
+            #else
             connection.restorePreference()
+            #endif
             installMenu()
             let panel = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 560, height: 730), styleMask: [.titled, .closable], backing: .buffered, defer: false)
-            panel.title = "BioChem · 设置"
+            panel.title = "biochem_tool_kit · 设置"
             panel.isReleasedWhenClosed = false; panel.hidesOnDeactivate = false
             panel.contentView = NSHostingView(rootView: AppSettingsView(connection: connection,
                 onBind: { [weak self] in
@@ -62,21 +66,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
     private func installMenu() {
         let status = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        status.button?.image = NSImage(systemSymbolName: "atom", accessibilityDescription: "BioChem 生化速查")
-        status.button?.toolTip = "BioChem · 生化速查"
+        status.button?.image = NSImage(systemSymbolName: "atom", accessibilityDescription: "biochem_tool_kit")
+        status.button?.toolTip = "biochem_tool_kit"
         let menu = NSMenu()
         menu.addItem(item("打开生化资料", #selector(openLibrary)))
         addToolMenus(to: menu)
         menu.addItem(.separator())
         menu.addItem(item("设置 · 可选桌宠连接…", #selector(openSettings)))
-        menu.addItem(item("退出 BioChem", #selector(quit), key: "q"))
+        menu.addItem(item("退出 biochem_tool_kit", #selector(quit), key: "q"))
         status.menu = menu; statusItem = status
         let main = NSMenu()
         let appItem = NSMenuItem(); let appMenu = NSMenu()
         appMenu.addItem(item("设置…", #selector(openSettings), key: ","))
+        appMenu.addItem(item("About biochem_tool_kit", #selector(showAbout)))
         appMenu.addItem(item("打开生化资料", #selector(openLibrary), key: "o"))
         appMenu.addItem(item("关闭窗口", #selector(closeWindow), key: "w"))
-        appMenu.addItem(item("退出 BioChem", #selector(quit), key: "q"))
+        appMenu.addItem(item("退出 biochem_tool_kit", #selector(quit), key: "q"))
         appItem.submenu = appMenu; main.addItem(appItem)
         let editItem = NSMenuItem(title: "编辑", action: nil, keyEquivalent: "")
         let edit = NSMenu(title: "编辑")
@@ -89,8 +94,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func addToolMenus(to menu: NSMenu) {
         let sections: [(String, [(String, Selector)])] = [
             ("Reference", [("氨基酸 · 20", #selector(openAmino)), ("官能团 · 24", #selector(openGroups))]),
-            ("Sequence", [("Primer Tools", #selector(openPrimer)), ("DNA Tools", #selector(openDNA)), ("Translation", #selector(openTranslation))]),
-            ("Protein", [("Protein Analyzer", #selector(openProtein))]),
+            ("DNA & Primer", [("Primer Analyzer", #selector(openPrimer)), ("Primer Pair", #selector(openPrimerPair)), ("DNA Tools", #selector(openDNA)), ("Translation", #selector(openTranslation))]),
+            ("Protein", [("Protein Analyzer", #selector(openProtein)), ("Protein Options", #selector(openProteinOptions))]),
+            ("Batch", [("FASTA Analyzer", #selector(openBatch))]),
             ("Calculators", [("Dilution", #selector(openDilution)), ("Molarity / Mass", #selector(openMolarity))])
         ]
         for (title, entries) in sections {
@@ -107,8 +113,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func showPetMenu(near anchor: NSRect?, at point: NSPoint) {
         menuAnchor = anchor
         defer { menuAnchor = nil }
-        let menu = NSMenu(title: "生化工具")
-        menu.addItem(item("打开生化工具", #selector(openLibrary)))
+        let menu = NSMenu(title: "biochem_tool_kit")
+        menu.addItem(item("打开 biochem_tool_kit", #selector(openLibrary)))
         addToolMenus(to: menu)
         menu.addItem(.separator())
         menu.addItem(item("连接设置…", #selector(openSettings)))
@@ -119,7 +125,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let close = item("关闭资料窗口", #selector(closeLibrary))
         close.isEnabled = library?.panel.isVisible == true
         menu.addItem(close)
-        menu.addItem(item("退出生化工具", #selector(quit)))
+        menu.addItem(item("退出 biochem_tool_kit", #selector(quit)))
         menu.autoenablesItems = false
         NSApp.activate(ignoringOtherApps: true)
         menu.popUp(positioning: nil, at: point, in: nil)
@@ -128,6 +134,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func openLibrary() { library?.show(near: menuAnchor) }
     @objc private func openAmino() { library?.show(kind: .aminoAcid, near: menuAnchor) }
     @objc private func openPrimer() { library?.show(destination: .primer, near: menuAnchor) }
+    @objc private func openPrimerPair() { library?.show(destination: .primerPair, near: menuAnchor) }
+    @objc private func openProteinOptions() { library?.show(destination: .proteinOptions, near: menuAnchor) }
+    @objc private func openBatch() { library?.show(destination: .batch, near: menuAnchor) }
+    @objc private func showAbout() { NSApp.orderFrontStandardAboutPanel(options:[.applicationName:"biochem_tool_kit"]) }
     @objc private func openDNA() { library?.show(destination: .dna, near: menuAnchor) }
     @objc private func openTranslation() { library?.show(destination: .translation, near: menuAnchor) }
     @objc private func openProtein() { library?.show(destination: .protein, near: menuAnchor) }
@@ -189,7 +199,7 @@ private struct AppSettingsView: View {
                 }
             } else {
                 VStack(alignment: .leading, spacing: 18) {
-                    Label("正在独立使用生化工具", systemImage: "atom").font(.headline)
+                    Label("正在独立使用 biochem_tool_kit", systemImage: "atom").font(.headline)
                     Text("资料查询、序列分析与溶液计算均可直接使用，无需桌宠或辅助功能权限。")
                     Text("需要从桌宠右键打开资料时，开启上方选项，再授权并点选桌宠。关闭此选项会断开连接并停止鼠标监听。")
                         .foregroundStyle(.secondary)
@@ -212,7 +222,7 @@ private struct BridgeSettingsView: View {
                 Image(systemName: "link.circle.fill").font(.system(size: 36)).foregroundStyle(.teal)
                 VStack(alignment: .leading, spacing: 4) {
                     Text("设置右键菜单").font(.system(size: 19, weight: .semibold))
-                    Text("右键原来的桌宠，选择打开生化工具").font(.subheadline).foregroundStyle(.secondary)
+                    Text("右键原来的桌宠，选择打开 biochem_tool_kit").font(.subheadline).foregroundStyle(.secondary)
                 }
             }
             Label(bridge.status, systemImage: bridge.isEnabled ? "checkmark.circle.fill" : "info.circle")

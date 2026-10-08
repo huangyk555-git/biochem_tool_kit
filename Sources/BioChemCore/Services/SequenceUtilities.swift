@@ -17,6 +17,9 @@ public enum SequenceUtilities {
         guard invalid.isEmpty else { throw AnalysisError.invalidCharacters(invalid.prefix(12).joined(separator: ", ")) }
         return sequence
     }
+    public static func dnaFASTA(_ input: String) throws -> DNAResult {
+        try dna(FASTAParser.singleSequence(input))
+    }
     public static func dna(_ input: String) throws -> DNAResult {
         let sequence = try validate(normalize(input), alphabet: Set("ATGC"))
         return DNAResult(sequence: sequence, counts: sequence.reduce(into: [:]) { $0[$1, default: 0] += 1 })
@@ -36,7 +39,7 @@ public enum SequenceUtilities {
     }
     public static func translate(_ input: String, frame: Int = 1, stopAtStop: Bool = true) throws -> TranslationResult {
         guard (1...3).contains(frame) else { throw AnalysisError.invalidNumber("Reading frame（1–3）") }
-        let sequence = Array(try dna(input).sequence)
+        let sequence = Array(try dnaFASTA(input).sequence)
         var output = "", stop: Int?
         let offset = frame - 1
         let usable = max(0, sequence.count - offset)
@@ -44,7 +47,7 @@ public enum SequenceUtilities {
         for index in 0..<codons {
             let start = offset + index * 3
             let codon = String(sequence[start..<(start + 3)])
-            let amino = GeneticCode.standard[codon]!
+            guard let amino = GeneticCode.standard[codon] else { throw AnalysisError.invalidCharacters(codon) }
             if amino == "*", stopAtStop { stop = index + 1; break }
             output.append(amino)
         }

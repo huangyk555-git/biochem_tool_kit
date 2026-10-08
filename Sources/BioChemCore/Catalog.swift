@@ -101,7 +101,7 @@ public struct Catalog: Codable {
 
     public func search(_ query: String, kind: EntryKind, category: String? = nil) -> [BioChemEntry] {
         let normalized = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        let candidates = entries.filter { $0.kind == kind && (category == nil || $0.categories.contains(category!)) }
+        let candidates = entries.filter { entry in entry.kind == kind && (category.map { entry.categories.contains($0) } ?? true) }
         // A single alphabetic character means the exact amino-acid code, not every English word containing it.
         if kind == .aminoAcid, normalized.count == 1, normalized.range(of: "^[A-Za-z]$", options: .regularExpression) != nil {
             return candidates.filter { $0.oneLetter?.caseInsensitiveCompare(normalized) == .orderedSame }

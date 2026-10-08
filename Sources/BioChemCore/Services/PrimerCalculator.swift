@@ -9,12 +9,9 @@ public enum PrimerCalculator {
             throw AnalysisError.invalidNumber("Na⁺ 浓度（1–1000 mM）")
         }
         let dna = try SequenceUtilities.dna(input)
-        let gc = dna.counts["G", default: 0] + dna.counts["C", default: 0]
-        let wallace = Double(2 * (dna.length - gc) + 4 * gc)
-        // von Ahsen et al. 2001 empirical GC formula (Biopython Tm_GC valueset 8).
-        let general = dna.length >= 14 ? 77.1 + 0.41 * dna.gcPercent - 528 / Double(dna.length)
-            + 11.7 * log10(sodiumMillimolar / 1000) : nil
-        let mass = dna.counts.reduce(0.0) { $0 + Double($1.value) * nucleotideMasses[$1.key]! } - 61.96
+        let wallace = PrimerTmCalculator.wallace(dna)
+        let general = dna.length >= 14 ? try PrimerTmCalculator.basic(dna, saltMillimolar: sodiumMillimolar) : nil
+        let mass = dna.counts.reduce(0.0) { $0 + Double($1.value) * nucleotideMasses[$1.key, default: 0] } - 61.96
         return PrimerResult(dna: dna, molecularWeight: mass, wallaceTm: wallace, generalTm: general, sodiumMillimolar: sodiumMillimolar)
     }
     public static func pair(forward: String, reverse: String, method: TmMethod = .gcSaltAdjusted,

@@ -2,27 +2,33 @@ import SwiftUI
 import BioChemCore
 
 struct ProteinToolsView: View {
-    @State private var input = ""
+    @ObservedObject var model: ProteinWorkspace
+    var optionsFirst = false
     var body: some View {
-        ToolPage(title: "Protein Sequence Analyzer", subtitle: "Theoretical value · 无修饰、线性、游离 N/C 端、还原态蛋白质") {
-            SequenceInput(title: "Protein sequence / single-record FASTA", text: $input,
-                hint: "移除一个 FASTA header，忽略空白并大写；仅 20 种标准氨基酸，B/J/O/U/X/Z、数字、- 和 * 均报错。", normalizeDNA: false)
-            switch Result(catching: { try ProteinCalculator.analyze(input) }) {
+        ToolPage(title: "Protein Sequence Analyzer", subtitle: "Theoretical values · Base = native / reduced；修饰结果单独列出") {
+            SequenceInput(title: "Protein sequence / single-record FASTA", text: $model.input,
+                hint: "移除一个 FASTA header，忽略空白并大写；仅 20 种标准氨基酸，B/J/O/U/X/Z、数字、- 和 * 均报错。", normalizeDNA: false, identifier: "protein.sequenceInput")
+            if optionsFirst { ProteinOptionsView(model:model) }
+            switch Result(catching: { try ProteinCalculator.analyze(model.input) }) {
             case .failure(let error): CalculationFailure(error: error)
             case .success(let r):
                 GroupBox("Theoretical value") {
                     ResultRow(label: "Sequence length", value: "\(r.length) aa")
-                    ResultRow(label: "Theoretical molecular weight", value: "\(numeric(r.molecularWeight)) Da")
-                    ResultRow(label: "Theoretical pI · Bjellqvist", value: numeric(r.isoelectricPoint))
+                    ResultRow(label: "Base theoretical molecular weight", value: "\(numeric(r.molecularWeight)) Da / \(numeric(r.molecularWeight/1000, digits:4)) kDa", identifier:"protein.baseMW")
+                    ResultRow(label: "Base theoretical pI · Bjellqvist", value: numeric(r.isoelectricPoint), identifier:"protein.piResult")
                     ResultRow(label: "Average residue mass (excludes terminal H₂O)", value: "\(numeric(r.averageResidueMass)) Da")
                     ResultRow(label: "Acidic D+E / Basic K+R+H / Aromatic F+W+Y", value: "\(r.acidicCount) / \(r.basicCount) / \(r.aromaticCount)")
                     ResultRow(label: "Trp / Tyr / Cys", value: "\(r.counts["W", default: 0]) / \(r.counts["Y", default: 0]) / \(r.counts["C", default: 0])")
                 }
-                GroupBox("Estimated ε₂₈₀ · M⁻¹ cm⁻¹") {
-                    ResultRow(label: "All cysteines reduced", value: numeric(r.extinctionReduced, digits: 0))
-                    ResultRow(label: "Maximum paired disulfides", value: numeric(r.extinctionMaxDisulfides, digits: 0))
-                    Text("第二项假定最多 floor(Cys/2) 对二硫键；不预测真实配对，也不改变上方还原态 MW / pI。缺少 Trp 时估计可能更不可靠。")
-                        .font(.caption).foregroundStyle(.secondary)
+                if !optionsFirst { ProteinOptionsView(model:model) }
+                switch Result(catching: { try ProteinModificationCalculator.calculate(model.input,options:model.options) }) {
+                case .failure(let error): CalculationFailure(error:error)
+                case .success(let modified):
+                    ResultRow(label:"Modification ΔMass (including termini / disulfides)",value:"\(numeric(modified.deltaMass, digits:4)) Da")
+                    ResultRow(label:"Final theoretical MW",value:"\(numeric(modified.finalMW, digits:4)) Da / \(numeric(modified.finalMW/1000, digits:4)) kDa",identifier:"protein.mwResult")
+                    ResultRow(label:"Total Cys / Disulfides",value:"\(r.counts["C",default:0]) / \(modified.disulfides)")
+                    ResultRow(label:"Estimated ε₂₈₀",value:"\(numeric(modified.extinction)) M⁻¹ cm⁻¹",identifier:"protein.extinctionResult")
+                    CopyButton(title:"Copy modified summary",text:"Base MW: \(modified.baseMW) Da\nΔMass: \(modified.deltaMass) Da\nFinal theoretical MW: \(modified.finalMW) Da\nDisulfides: \(modified.disulfides)\nEstimated epsilon280: \(modified.extinction) M^-1 cm^-1\nBase pI (NOT modification-adjusted): \(r.isoelectricPoint)")
                 }
                 HStack { CopyButton(title: "Copy sequence", text: r.sequence); CopyButton(title: "Copy result", text: report(r)) }
                 SequenceOutput(title: "Normalized sequence", sequence: r.sequence)

@@ -18,7 +18,7 @@ public final class BioChemPanelController {
         session = BioChemSession(catalog: catalog)
         panel = SearchablePanel(contentRect: NSRect(x: 0, y: 0, width: 920, height: 760),
                                 styleMask: floating ? [.titled, .closable, .resizable, .utilityWindow] : [.titled, .closable, .resizable, .miniaturizable], backing: .buffered, defer: false)
-        panel.title = "BioChem · 生化速查"
+        panel.title = "biochem_tool_kit"
         panel.minSize = NSSize(width: 780, height: 700)
         panel.isReleasedWhenClosed = false
         panel.hidesOnDeactivate = false
